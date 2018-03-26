@@ -18,16 +18,43 @@
           target="_blank"
           class="button--grey">GitHub</a>
       </div>
+      {{project}}{{index}}
+      <button v-on:click='test()'>click</button>
+       <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     </div>
   </section>
 </template>
 
 <script>
 import AppLogo from '~/components/AppLogo.vue'
+import InfiniteLoading from 'vue-infinite-loading';
 
 export default {
   components: {
-    AppLogo
+    AppLogo,
+    InfiniteLoading,
+  },
+  data () {
+    return { project: 'default' }
+  },
+  asyncData (context) {
+    return { name: 'index' }
+  },
+  methods: {
+    test: function (){
+      this.project = 'test'
+    },
+    infiniteHandler($state) {
+      setTimeout(() => {
+        // const temp = [];
+        // for (let i = this.list.length + 1; i <= this.list.length + 20; i++) {
+        //   temp.push(i);
+        // }
+        // this.list = this.list.concat(temp);
+        this.project = this.project+'ttt'
+        $state.loaded();
+      }, 1000);
+    },
   }
 }
 </script>
