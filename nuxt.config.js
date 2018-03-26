@@ -6,7 +6,8 @@ const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
 
 
 module.exports = {
-  ...routerBase,
+  // ...routerBase,
+  mode: 'spa',
   head: {
     title: 'nuxta',
     meta: [
@@ -30,6 +31,7 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
+   vendor: ['bootstrap-vue','bootstrap/dist/css/bootstrap.css','bootstrap-vue/dist/bootstrap-vue.css','vue-infinite-loading'],
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
@@ -41,7 +43,7 @@ module.exports = {
       }
     }
   },
-  plugins: ['~/plugins/bootstrap.js'],
+  plugins: [{ src: '~/plugins/bootstrap.js', ssr: false }],
   // modules: [
   //   '~/node_modules/bootstrap-vue/nuxt',
   //   // Or if you have custom bootstrap CSS...
