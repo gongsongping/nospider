@@ -1,18 +1,18 @@
 <template>
   <div>
-    <b-navbar toggleable="md" type="dark" variant="info">
+    <b-navbar sticky toggleable="md" type="dark" variant="info">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
       <b-collapse is-nav id="nav_collapse">
 
         <b-navbar-nav>
-          <b-nav-item href="/">首页</b-nav-item>
-          <b-nav-item href="/mine">我的</b-nav-item>
+          <b-nav-item href="/" >首页</b-nav-item>
+          <b-nav-item href="/mine" right>我的</b-nav-item>
         </b-navbar-nav>
 
       </b-collapse>
     </b-navbar>
-    
+
     <nuxt />
   </div>
 </template>

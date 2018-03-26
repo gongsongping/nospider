@@ -1,7 +1,12 @@
+const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+  router: {
+    base: '/nuxta/'
+  }
+} : {}
+
+
 module.exports = {
-  /*
-  ** Headers of the page
-  */
+  ...routerBase,
   head: {
     title: 'nuxta',
     meta: [
