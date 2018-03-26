@@ -7,6 +7,9 @@ const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
 
 module.exports = {
   // ...routerBase,
+  router: {
+    base: '/nuxta/'
+  },
   mode: 'spa',
   head: {
     title: 'nuxta',
