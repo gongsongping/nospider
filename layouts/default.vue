@@ -6,8 +6,8 @@
       <b-collapse is-nav id="nav_collapse">
 
         <b-navbar-nav>
-          <b-nav-item href="/" >首页</b-nav-item>
-          <b-nav-item href="/mine" right>我的</b-nav-item>
+          <nuxt-link  to="/" style='color:white;margin-right:10px;'>首页 </nuxt-link>
+          <nuxt-link to="/mine"  style='color:white;margin-right:10px;'>我的</nuxt-link>
         </b-navbar-nav>
 
       </b-collapse>
@@ -27,6 +27,11 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+}
+
+a:hover {
+    background-color: rgb(39, 59, 59);
+    text-decoration: none;
 }
 
 *, *:before, *:after {
