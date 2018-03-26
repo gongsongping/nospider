@@ -1,7 +1,32 @@
 <template>
-  <div>
-    <div style='margin:0 20%;padding:10px;'>
-        <div v-for='(item, index) of tweets' :key='index'  style='padding-bottom:10px;'>
+  <div  style='margin:0 20%;padding:10px;'>
+    <div  style='padding-bottom:10px;'>
+        <nuxt-link :to="{ path: '/users/'+index, query: { tweet: tweet }}">  
+            <div style='display:flex;flex-direction:row;'>
+                <div style='display:flex;flex-direction:row;justify-content:center;align-items:center;'>
+                <div style='flex:2;background-color:tomato;border-radius:50%;width:70px;height:70px;'>
+                    <img :src='tweet.avatar_url' style='border-radius:50%;width:70px;height:70px;' />
+                </div>
+                </div>
+                <div style='flex:8;padding-left:20px;'>
+                <div>{{tweet.name}}</div>
+                <div style='font-size:0.8em;'>2-7 13:50:22 </div>
+                </div>
+            </div>
+        </nuxt-link>
+            
+        <div style='padding:10px;'>
+            <p style='padding:10px;line-height:1.5em;'>{{tweet.tweet}}</p>
+        </div>
+                
+        <div style='display:flex;flex-direction:row;justify-content:space-around;align-items:center;padding:20px; border-top: 0.5px solid lightgrey; border-bottom: 15px solid lightgrey;'>
+        <i style='color:grey;' class='fa fa-external-link'></i>
+        <i style='color:grey;' class='fa fa-folder'></i>
+        <i style='color:grey;' class='fa fa-thumbs-up'></i>
+        </div>
+    </div>
+    <p>{{comments.length}}条评论</p>
+    <div v-for='(item, index) of comments' :key='index'  style='padding-bottom:10px;'>
           <nuxt-link :to="{ path: '/users/'+index, query: { tweet: item }}">  
             <div style='display:flex;flex-direction:row;'>
               <div style='display:flex;flex-direction:row;justify-content:center;align-items:center;'>
@@ -14,19 +39,11 @@
                 <div style='font-size:0.8em;'>2-7 13:50:22 </div>
               </div>
             </div>
-          </nuxt-link>
-          
-          <nuxt-link :to="{ path: '/posts/'+index, query: { tweet: item }}">            
-            <div style='padding:10px;'>
+
+             <div style='padding:10px;'>
               <p style='padding:10px;line-height:1.5em;'>{{item.tweet}}</p>
             </div>
-          </nuxt-link>          
-          <div style='display:flex;flex-direction:row;justify-content:space-around;align-items:center;padding:20px; border-top: 0.5px solid lightgrey; border-bottom: 15px solid lightgrey;'>
-            <i style='color:grey;' class='fa fa-external-link'></i>
-            <i style='color:grey;' class='fa fa-folder'></i>
-            <i style='color:grey;' class='fa fa-thumbs-up'></i>
-          </div>
-        </div>
+          </nuxt-link>
     </div>
 
     <infinite-loading @infinite="infiniteHandler"></infinite-loading>
@@ -34,19 +51,12 @@
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue';
 import InfiniteLoading from 'vue-infinite-loading';
-// import { Card } from 'bootstrap-vue/es/components';
 
 export default {
-  components: {
-    AppLogo,
-    InfiniteLoading,
-    // Card,
-  },
   data () {
     return { 
-      tweets:[],
+      comments:[],
       list: [
         {
           name: '聪聪',
@@ -81,12 +91,15 @@ export default {
       ]
     }
   },
+  components: {
+    InfiniteLoading,
+  },
   asyncData (context) {
-    return { name: 'index' }
+    return { userid: context.params, tweet: context.query.tweet }
   },
   methods: {
     infiniteHandler($state) {
-      this.tweets = this.tweets.concat(this.list)
+      this.comments = this.comments.concat(this.list)
       $state.loaded()
     },
   }
@@ -94,32 +107,7 @@ export default {
 </script>
 
 <style>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+.red {
+  color: red;
 }
 </style>
