@@ -12,8 +12,9 @@
 
       </b-collapse>
     </b-navbar>
-
-    <nuxt />
+    <div style='margin:0 auto;max-width:700px;'>
+      <nuxt />
+    </div>
   </div>
 </template>
 

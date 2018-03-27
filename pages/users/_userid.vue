@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style='margin:0 20%;padding:10px;'>
+    <div style='padding:8px;'>
         <div v-for='(item, index) of tweets' :key='index'  style='padding-bottom:10px;'>
           <nuxt-link :to="{ path: '/users/'+index, query: { tweet: item }}">  
             <div style='display:flex;flex-direction:row;'>
