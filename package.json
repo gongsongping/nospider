@@ -13,7 +13,7 @@
     "precommit": "npm run lint",
     "build:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt build",
     "generate:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt generate",
-    "deploy": "push-dir --dir=dist --branch=master --cleanup"
+    "deploy": "push-dir --dir=dist --branch=gh_pages --cleanup"
   },
   "dependencies": {
     "bootstrap-vue": "^2.0.0-rc.2",
