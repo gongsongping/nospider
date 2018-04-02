@@ -1,7 +1,7 @@
 <template>
   <div style='padding:8px;'>
     <div  style='padding-bottom:10px;'>
-        <nuxt-link :to="{ path: '/users/'+index, query: { tweet: tweet }}">  
+        <nuxt-link :to="{ path: '/users/'+index, query: { tweet: JSON.stringify(tweet) }}" >  
             <div style='display:flex;flex-direction:row;'>
                 <div style='display:flex;flex-direction:row;justify-content:center;align-items:center;'>
                 <div style='flex:2;background-color:tomato;border-radius:50%;width:70px;height:70px;'>
@@ -27,7 +27,7 @@
     </div>
     <p>{{comments.length}}条评论</p>
     <div v-for='(item, index) of comments' :key='index'  style='padding-bottom:10px;'>
-          <nuxt-link :to="{ path: '/users/'+index, query: { tweet: item }}">  
+          <nuxt-link :to="{ path: '/users/'+index, query: { tweet: JSON.stringify(item) }}">  
             <div style='display:flex;flex-direction:row;'>
               <div style='display:flex;flex-direction:row;justify-content:center;align-items:center;'>
                 <div style='flex:2;background-color:tomato;border-radius:50%;width:70px;height:70px;'>
@@ -95,7 +95,7 @@ export default {
     InfiniteLoading,
   },
   asyncData (context) {
-    return { userid: context.params, tweet: context.query.tweet }
+    return { userid: context.params, tweet: JSON.parse(context.query.tweet) }
   },
   methods: {
     infiniteHandler($state) {

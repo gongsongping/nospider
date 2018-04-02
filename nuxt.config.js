@@ -10,6 +10,9 @@ module.exports = {
     base: '/nuxta/'
   },
   mode: 'spa',
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+  },
   head: {
     title: 'nuxta',
     meta: [
