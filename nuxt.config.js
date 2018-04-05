@@ -6,9 +6,9 @@ const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
 
 
 module.exports = {
-  // router: {
-  //   base: '/nuxta/'
-  // },
+  router: {
+    base: '/'
+  },
   mode: 'spa',
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3002'

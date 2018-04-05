@@ -24,7 +24,7 @@ def deploy():
     deploy_to = '/home/nuxta'
     local('git push virmach master')
     with cd(deploy_to):
-        run('git push origin master')
+        run('git pull origin master')
         run('export PATH=$PATH:/root/.nvm/versions/node/v8.10.0/bin')
         run('npm install')
         run('npm build')
