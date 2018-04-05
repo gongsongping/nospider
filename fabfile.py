@@ -5,27 +5,37 @@ from datetime import datetime
 from fabric.api import *
 import os
 # 登录用户和主机名：
-env.user = 'gsp'
+env.user = 'root'
 env.sudo_user = 'root'
-env.hosts = ['www.changiif.com'] # 如果有多个主机，fabric会自动依次部署
+env.hosts = ['107.175.60.87'] # 如果有多个主机，fabric会自动依次部署
 env.password='gsp191954'
-import sqlite3
-
-def sqlite():
-    con = sqlite3.connect('./rails_api_development.db')
-    f = open('./rails_api_development.sql','r')
-    str = f.read()
-    cur = con.cursor()
-    cur.execute(str)
     
 
 
-def test():
-    deploy_to = '/home/gsp/wd/change/public/change'
-    local('cd www&&ls')
-    local('ls')    
+def node():
+    deploy_to = '/home'
+    # local('cd www&&ls')
+    # local('ls')    
     with cd(deploy_to):
-        run('ls')
+        run('curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash')
+        run('nvm install 8.10.0')
+
+def deploy():
+    deploy_to = '/home/nuxta'
+    local('git push virmach master')
+    with cd(deploy_to):
+        run('git push origin master')
+        run('export PATH=$PATH:/root/.nvm/versions/node/v8.10.0/bin')
+        run('npm install')
+        run('npm build')
+        run('npm start')
+
+def nginx():
+    deploy_to = '/home'
+    local('scp nginx.conf root@107.175.60.87:/etc/nginx/nginx.conf') 
+    with cd(deploy_to):
+        run('service nginx restart')
+
 
 # task :log do
 #   queue %[sudo cp /var/log/nginx/error.log #{deploy_to}/log/nginx.error.log]

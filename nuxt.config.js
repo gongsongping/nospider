@@ -6,9 +6,9 @@ const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
 
 
 module.exports = {
-  router: {
-    base: '/nuxta/'
-  },
+  // router: {
+  //   base: '/nuxta/'
+  // },
   mode: 'spa',
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3002'
@@ -36,7 +36,7 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-   vendor: ['axios','bootstrap-vue','bootstrap/dist/css/bootstrap.css','bootstrap-vue/dist/bootstrap-vue.css','vue-infinite-loading'],
+  //  vendor: ['axios','vue-infinite-loading'],
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
