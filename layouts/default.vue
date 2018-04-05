@@ -7,7 +7,9 @@
 
         <b-navbar-nav>
           <nuxt-link  to="/" style='color:white;margin-right:10px;'>首页 </nuxt-link>
-          <nuxt-link to="/mine"  style='color:white;margin-right:10px;'>我的</nuxt-link>
+          <nuxt-link to="/mine"  style='color:white;margin-right:10px;'>
+            <i style='color:white;' class='fa fa-plus'></i>          
+           </nuxt-link>
         </b-navbar-nav>
 
       </b-collapse>

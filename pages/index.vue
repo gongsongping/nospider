@@ -82,7 +82,7 @@ export default {
     }
   },
   asyncData (context) {
-    console.log(context); 
+    // console.log(context); 
     return { name: 'index' }
   },
   methods: {
