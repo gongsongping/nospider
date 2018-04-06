@@ -38,9 +38,9 @@ export default {
     InfiniteLoading
   },
   async asyncData (context) {
-    axios.defaults.baseURL = context.env.baseUrl;
+    axios.defaults.baseURL = context.env.baseURL;
     // let url = context.env.baseUrl+'/posts'
-    let res  = await axios.get('/posts?skip=0')
+    let res  = await axios.get('/api/posts?skip=0')
     console.log(res.data);
     return { posts: res.data }
     // return { name: context.params }
@@ -52,7 +52,7 @@ export default {
     async sendPost(){
       //  console.log(this);    
        let res = axios({
-         url: '/posts',
+         url: '/api/posts',
          method:'POST',
          data:{
            content: this.content
@@ -63,7 +63,7 @@ export default {
     },
     async infiniteHandler($state) {
        this.skip = this.skip+1
-       let res  = await axios.get('/posts?skip='+this.skip)
+       let res  = await axios.get('/api/posts?skip='+this.skip)
        console.log(res.data);
        this.posts = this.posts.concat(res.data)
        $state.loaded()

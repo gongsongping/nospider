@@ -10,7 +10,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt build&&nuxt start",
-    "prod": "nuxt build&&pm2 start npm --name nuxta -- start",
+    "prod": "BASE_URL=gongsongping.com nuxt build&&pm2 start npm --name nuxta -- start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
