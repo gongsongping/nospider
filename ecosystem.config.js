@@ -64,6 +64,7 @@ module.exports = {
       }
     },
     "staging" : {
+      "key"  : "~/.ssh/id_rsa.pub",
       "user" : "root",
       // Multi host is possible, just by passing IPs/hostname as an array
       "host" : ["107.175.60.87"],
