@@ -70,7 +70,7 @@ module.exports = {
       // Branch
       "ref"  : "origin/master",
       // Git repository to clone
-      "repo" : "git@github.com:repo.git",
+      "repo" : "ssh://root@107.175.60.87/home/repo/nuxta.git",
       // Path of the application on target servers
       "path" : "/home/nuxta",
       "ssh_options": ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
