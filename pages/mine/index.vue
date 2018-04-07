@@ -38,7 +38,9 @@ export default {
     InfiniteLoading
   },
   async asyncData (context) {
-    axios.defaults.baseURL = context.env.baseURL;
+    // axios.defaults.baseURL = context.env.baseURL;
+    axios.defaults.baseURL = 'http://gongsongping.com'
+    // axios.defaults.baseURL = 'http://localhost:3001'
     // let url = context.env.baseUrl+'/posts'
     let res  = await axios.get('/api/posts?skip=0')
     console.log(res.data);
