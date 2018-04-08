@@ -5,8 +5,6 @@
   "author": "gongsongping",
   "private": true,
   "scripts": {
-    "//": "dff",
-    "//": "dxff",
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt build&&nuxt start",
