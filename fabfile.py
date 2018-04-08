@@ -25,16 +25,17 @@ def deploy():
     local('git push virmach master')
     with cd(deploy_to):
         run('git pull origin master')
-        run('export PATH=$PATH:/root/.nvm/versions/node/v8.10.0/bin')
-        run('npm install')
-        run('npm build')
-        run('npm start')
+        run('export PATH=$PATH:/root/.nvm/versions/node/v8.10.0/bin&&npm install&&npm run prod')
+        # run('npm install')
+        # run('npm build')
+        # run('npm start')
 
 def nginx():
     deploy_to = '/home'
     local('scp nginx.conf root@107.175.60.87:/etc/nginx/nginx.conf') 
     with cd(deploy_to):
         run('service nginx restart')
+
 
 
 # task :log do
