@@ -5,6 +5,7 @@
   "author": "gongsongping",
   "private": true,
   "scripts": {
+    "node-version": "nvm use 8.10.0",
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt build&&nuxt start",

@@ -38,9 +38,9 @@ export default {
     InfiniteLoading
   },
   async asyncData (context) {
+    console.log('-------isDeve?',context.isDev);
     // axios.defaults.baseURL = context.env.baseURL;
-    axios.defaults.baseURL = 'http://gongsongping.com'
-    // axios.defaults.baseURL = 'http://localhost:3001'
+    context.isDev? (axios.defaults.baseURL = 'http://localhost:3001'):(axios.defaults.baseURL = 'http://gongsongping.com')
     // let url = context.env.baseUrl+'/posts'
     let res  = await axios.get('/xapi/posts?skip=0')
     console.log(res.data);
