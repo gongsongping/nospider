@@ -1,6 +1,9 @@
 <template>
 <div style='margin:0 auto;max-width:700px;'>
     <div style='margin:0 20%;padding:10px;'>
+        <b-button >
+           看看
+        </b-button>
         <div style='text-align:center;'>
             <textarea v-model="content" id="" cols="30" rows="5"></textarea>
             <div>

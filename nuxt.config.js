@@ -6,6 +6,13 @@ const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
 
 
 module.exports = {
+  css: [
+    // 项目中的 CSS 文件
+    // 'bootstrap/dist/css/bootstrap.css',
+    // 'bootstrap-vue/dist/bootstrap-vue.css',
+    // 项目中的 Sass 文件 @/assets ~/assets all is ok
+    { src: '~assets/css/main.scss', lang: 'scss' } // 指定 scss 而非 sass
+  ],
   router: {
     // linkActiveClass: 'link-active',
     linkExactActiveClass:'link-exact-active',
@@ -22,12 +29,12 @@ module.exports = {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' }
-    ]
+    ],
   },
   /*
   ** Customize the progress bar color
   */
-  loading: { color: '#3B8070' },
+  loading: { color: 'blue' },
   /*
   ** Build configuration
   */
@@ -35,7 +42,7 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-  //  vendor: ['axios','vue-infinite-loading'],
+   vendor: ['axios','vue-infinite-loading'],
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
@@ -47,7 +54,7 @@ module.exports = {
       }
     }
   },
-  plugins: [{ src: '~/plugins/bootstrap.js', ssr: false }],
+  plugins: [{ src: '~/plugins/bootstrap.js', ssr: true }],
   // modules: [
   //   '~/node_modules/bootstrap-vue/nuxt',
   //   // Or if you have custom bootstrap CSS...

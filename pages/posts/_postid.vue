@@ -3,7 +3,7 @@
 
   <div style='padding:8px;'>
     <div  style='padding-bottom:10px;'>
-        <nuxt-link :to="{ path: '/users/'+index, query: { tweet: JSON.stringify(tweet) }}" >  
+        <nuxt-link :to="{ path: '/users/'+2, query: { tweet: JSON.stringify(tweet) }}" >  
             <div style='display:flex;flex-direction:row;'>
                 <div style='display:flex;flex-direction:row;justify-content:center;align-items:center;'>
                 <div style='flex:2;background-color:tomato;border-radius:50%;width:70px;height:70px;'>
