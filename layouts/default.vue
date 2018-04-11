@@ -1,20 +1,23 @@
 <template>
   <div>
-    <b-navbar sticky toggleable="md" type="dark" variant="info">
+    <b-navbar sticky toggleable="md" type="dark" variant="info" style='padding:0 15px;'>
+
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-
-      <b-collapse is-nav id="nav_collapse">
-
-        <b-navbar-nav>
-          <nuxt-link  to="/" style='color:white;margin-right:10px;'>首页 </nuxt-link>
-          <nuxt-link to="/mine"  style='color:white;margin-right:10px;'>
-            <i style='color:white;' class='fa fa-plus'></i>          
-           </nuxt-link>
-        </b-navbar-nav>
-
-      </b-collapse>
+        <b-collapse is-nav id="nav_collapse">
+          <b-navbar-nav>
+            <nuxt-link  to="/" > 
+              <div style='color:white;padding:8px;'>首页</div>
+            </nuxt-link>
+            <nuxt-link  to="/myapps" >
+            <div style='color:white;padding:8px;'>myapps  </div> 
+            </nuxt-link>
+            <nuxt-link to="/mine"  >
+              <div style='color:white;padding:8px;'>  <i style='color:white;' class='fa fa-plus'></i>  </div>        
+            </nuxt-link>
+          </b-navbar-nav>
+        </b-collapse>
     </b-navbar>
-    <div style='margin:0 auto;max-width:700px;'>
+    <div class="container-fluid" style='padding-top:15px;'>
       <nuxt />
     </div>
   </div>
@@ -32,8 +35,12 @@ html {
   box-sizing: border-box;
 }
 
+a {
+  color: rgb(32, 30, 30);
+}
+
 a:hover {
-    background-color: rgb(39, 59, 59);
+    background-color: tomato;
     text-decoration: none;
 }
 

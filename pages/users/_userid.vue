@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style='margin:0 auto;max-width:700px;'>
     <div style='padding:8px;'>
         <div v-for='(item, index) of tweets' :key='index'  style='padding-bottom:10px;'>
           <nuxt-link :to="{ path: '/users/'+index, query: { tweet: JSON.stringify(item) }}" >  

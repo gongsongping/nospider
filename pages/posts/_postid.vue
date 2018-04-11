@@ -1,4 +1,6 @@
 <template>
+<div style='margin:0 auto;max-width:700px;'>
+
   <div style='padding:8px;'>
     <div  style='padding-bottom:10px;'>
         <nuxt-link :to="{ path: '/users/'+index, query: { tweet: JSON.stringify(tweet) }}" >  
@@ -48,6 +50,7 @@
 
     <infinite-loading @infinite="infiniteHandler"></infinite-loading>
   </div>
+</div>
 </template>
 
 <script>
