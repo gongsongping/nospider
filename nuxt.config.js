@@ -7,7 +7,9 @@ const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
 
 module.exports = {
   router: {
-    base: '/nuxta/'
+    // linkActiveClass: 'link-active',
+    linkExactActiveClass:'link-exact-active',
+    base: '/nuxta/',
   },
   mode: 'spa',
   // env: {

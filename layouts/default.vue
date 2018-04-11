@@ -40,6 +40,7 @@ a:hover {
 *, *:before, *:after {
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
 }
 
 .button--green {
@@ -69,5 +70,11 @@ a:hover {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+.link-active {
+  background-color: grey;
+}
+.link-exact-active {
+  background-color: tomato;
 }
 </style>

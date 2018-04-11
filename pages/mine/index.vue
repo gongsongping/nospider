@@ -52,7 +52,7 @@ export default {
   },
   methods:{
     async sendPost(){
-      //  console.log(this);    
+      //  console.log(this.$nuxt,'----',this.$router);    
        let res = axios({
          url: '/xapi/posts',
          method:'POST',
