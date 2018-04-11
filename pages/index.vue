@@ -29,7 +29,11 @@
         </div>
     </div>
 
-    <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+
+     <no-ssr>
+
+            <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+        </no-ssr>
   </div>
 </template>
 

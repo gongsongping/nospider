@@ -11,10 +11,7 @@ module.exports = {
     linkExactActiveClass:'link-exact-active',
     base: '/nuxta/',
   },
-  mode: 'spa',
-  // env: {
-  //   baseURL: process.env.BASE_URL || 'http://localhost:3001'
-  // },
+  // mode: 'spa',
   head: {
     title: 'nuxta',
     meta: [
