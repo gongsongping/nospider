@@ -5,4 +5,4 @@ import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(BootstrapVue);
 
-console.log(process.env);
+// console.log(process.env);

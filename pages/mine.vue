@@ -29,7 +29,9 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+
+import axios from '~/plugins/axios';
 import InfiniteLoading from 'vue-infinite-loading';
 
 export default {
@@ -39,10 +41,10 @@ export default {
   async asyncData (context) {
     console.log('-------isDeve?',context.isDev);
     // axios.defaults.baseURL = context.env.baseURL;
-    context.isDev? (axios.defaults.baseURL = 'http://localhost:3001'):(axios.defaults.baseURL = 'http://gongsongping.com')
     // let url = context.env.baseUrl+'/posts'
+    // context.isDev? (axios.defaults.baseURL = 'http://localhost:3001'):(axios.defaults.baseURL = 'http://gongsongping.com')
     let res  = await axios.get('/xapi/posts?skip=0')
-    console.log(res.data);
+    // console.log(res.data);
     return { posts: res.data }
     // return { name: context.params }
   },

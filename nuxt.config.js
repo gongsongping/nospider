@@ -42,7 +42,7 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-   vendor: ['axios','vue-infinite-loading'],
+  //  vendor: ['axios','vue-infinite-loading'],
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
@@ -54,7 +54,10 @@ module.exports = {
       }
     }
   },
-  plugins: [{ src: '~/plugins/bootstrap.js', ssr: true }],
+  plugins: [
+    { src: '~/plugins/bootstrap.js', ssr: true },
+    // { src: '~/plugins/axios.js', ssr: true }, //当没有用到Vue.use(..)的时候,不用在这里引入
+  ],
   // modules: [
   //   '~/node_modules/bootstrap-vue/nuxt',
   //   // Or if you have custom bootstrap CSS...
