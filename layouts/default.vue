@@ -8,7 +8,7 @@
             <nuxt-link  to="/" > 
               <div style='color:white;padding:8px;'>首页</div>
             </nuxt-link>
-            <nuxt-link  to="/myapps" >
+            <nuxt-link  to="/myapps/changeion" >
             <div style='color:white;padding:8px;'> 个人玩票项目  </div> 
             </nuxt-link>
             <nuxt-link to="/mine"  >

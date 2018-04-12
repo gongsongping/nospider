@@ -21,7 +21,7 @@
 export default {
   data () {
     return { 
-      apps:['public2','staff2','changeion','changev3','cafe','language','zhongviet'],
+      apps:['changeion','changev3','public2','staff2','cafe','language','zhongviet'],
     }
   },
   components: {

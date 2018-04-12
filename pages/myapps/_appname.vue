@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-progress v-show="counter<10" :value="counter" :max="mx" show-progress animated variant="info" style="margin-bottom:10px;width:400px;"></b-progress>
+    <b-progress v-show="counter<10" :value="counter" :max="mx" show-progress animated variant="info" style="margin:10px;width:400px;"></b-progress>
     <div :style="{backgroundImage: 'url(' +require('~/assets/img/iphone.jpg')+')'}" class="bgi">
        <iframe :src="'http://gongsongping.com/proj/'+appname" style="background-color:lightblue; width:100%;height:100%;" frameborder="0"></iframe>
     </div>
@@ -46,6 +46,7 @@ export default {
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
+  margin-top:5px;
 }
   
 </style>
