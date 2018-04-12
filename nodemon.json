@@ -1,5 +1,5 @@
 {
-    "ignore": ["**/*.test.js", "**/*.spec.js", ".git", "node_modules"],
+    "ignore": ["**/*.test.js", "**/*.spec.js", ".git", "node_modules",".nuxt","dist","tmp"],
     "watch": ["."],
     "exec": "npm start",
     "ext": "js vue css scss"

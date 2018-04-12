@@ -1,6 +1,6 @@
 <template>
   <div>
-     default child
+     个人玩票项目
   </div>
 </template>
 

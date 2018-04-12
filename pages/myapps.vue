@@ -2,7 +2,7 @@
     
     <div class="row">
         <div class='col-md-2'>
-            <div v-for="a of apps" :key='a' style='border-bottom:1px solid lightgrey;'>
+            <div v-for="a of apps" :key='a' style='border-bottom:1px solid tomato;'>
                 <nuxt-link :to="'/myapps/'+a" style='padding:3px 10px;display:block;'>
                     {{a}}
                 </nuxt-link>

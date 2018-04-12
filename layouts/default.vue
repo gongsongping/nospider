@@ -9,7 +9,7 @@
               <div style='color:white;padding:8px;'>首页</div>
             </nuxt-link>
             <nuxt-link  to="/myapps" >
-            <div style='color:white;padding:8px;'>myapps  </div> 
+            <div style='color:white;padding:8px;'> 个人玩票项目  </div> 
             </nuxt-link>
             <nuxt-link to="/mine"  >
               <div style='color:white;padding:8px;'>  <i style='color:white;' class='fa fa-plus'></i>  </div>        
