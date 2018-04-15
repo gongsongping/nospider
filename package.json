@@ -10,7 +10,7 @@
     "build": "nuxt build",
     "build-check": "nuxt build --analyze",
     "start": "nuxt build&&nuxt start",
-    "prod": "pm2 stop nuxta&&nuxt build&&pm2 start npm --name nuxta -- start",
+    "prod": "pm2 stop nuxta&&npm run build&&pm2 start npm  --max-memory-restart 100M --name nuxta -- start",
     "generate": "nuxt generate",
     "server": "NODE_ENV=production&&node server.js",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
