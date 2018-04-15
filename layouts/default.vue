@@ -5,13 +5,13 @@
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
         <b-collapse is-nav id="nav_collapse">
           <b-navbar-nav>
-            <nuxt-link  to="/" > 
+            <nuxt-link  to="/changeion" > 
               <div style='color:white;padding:8px;'>首页</div>
             </nuxt-link>
-            <nuxt-link  to="/myapps/changeion" >
-            <div style='color:white;padding:8px;'> 个人玩票项目  </div> 
+            <nuxt-link  to="/weibo" >
+            <div style='color:white;padding:8px;'> 微博  </div> 
             </nuxt-link>
-            <nuxt-link to="/mine"  >
+            <nuxt-link to="/weibo/write"  >
               <div style='color:white;padding:8px;'>  <i style='color:white;' class='fa fa-plus'></i>  </div>        
             </nuxt-link>
           </b-navbar-nav>

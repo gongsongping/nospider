@@ -1,6 +1,6 @@
 <template>
   <div>
-     个人玩票项目
+     个人项目
   </div>
 </template>
 
@@ -10,6 +10,9 @@ export default {
   data () {
     return {test:'test'}
   },
+  mounted(){
+    this.$router.push({path:'/changeion'})
+  }
 }
 </script>
 

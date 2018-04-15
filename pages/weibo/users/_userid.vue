@@ -2,7 +2,7 @@
   <div style='margin:0 auto;max-width:700px;'>
     <div style='padding:8px;'>
         <div v-for='(item, index) of tweets' :key='index'  style='padding-bottom:10px;'>
-          <nuxt-link :to="{ path: '/users/'+index, query: { tweet: JSON.stringify(item) }}" >  
+          <nuxt-link :to="{ path: '/weibo/users/'+index, query: { tweet: JSON.stringify(item) }}" >  
             <div style='display:flex;flex-direction:row;'>
               <div style='display:flex;flex-direction:row;justify-content:center;align-items:center;'>
                 <div style='flex:2;background-color:tomato;border-radius:50%;width:70px;height:70px;'>
@@ -16,7 +16,7 @@
             </div>
           </nuxt-link>
           
-          <nuxt-link :to="{ path: '/posts/'+index, query: { tweet: JSON.stringify(item) }}" >            
+          <nuxt-link :to="{ path: '/weibo/posts/'+index, query: { tweet: JSON.stringify(item) }}" >            
             <div style='padding:10px;'>
               <p style='padding:10px;line-height:1.5em;'>{{item.tweet}}</p>
             </div>

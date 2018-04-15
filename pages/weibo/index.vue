@@ -1,35 +1,8 @@
 <template>
-<div style='margin:0 auto;max-width:700px;'>
-
-  <div style='padding:8px;'>
-    <div  style='padding-bottom:10px;'>
-        <nuxt-link :to="{ path: '/users/'+2, query: { tweet: JSON.stringify(tweet) }}" >  
-            <div style='display:flex;flex-direction:row;'>
-                <div style='display:flex;flex-direction:row;justify-content:center;align-items:center;'>
-                <div style='flex:2;background-color:tomato;border-radius:50%;width:70px;height:70px;'>
-                    <img :src='tweet.avatar_url' style='border-radius:50%;width:70px;height:70px;' />
-                </div>
-                </div>
-                <div style='flex:8;padding-left:20px;'>
-                <div>{{tweet.name}}</div>
-                <div style='font-size:0.8em;'>2-7 13:50:22 </div>
-                </div>
-            </div>
-        </nuxt-link>
-            
-        <div style='padding:10px;'>
-            <p style='padding:10px;line-height:1.5em;'>{{tweet.tweet}}</p>
-        </div>
-                
-        <div style='display:flex;flex-direction:row;justify-content:space-around;align-items:center;padding:20px; border-top: 0.5px solid lightgrey; border-bottom: 15px solid lightgrey;'>
-        <i style='color:grey;' class='fa fa-external-link'></i>
-        <i style='color:grey;' class='fa fa-folder'></i>
-        <i style='color:grey;' class='fa fa-thumbs-up'></i>
-        </div>
-    </div>
-    <p>{{comments.length}}条评论</p>
-    <div v-for='(item, index) of comments' :key='index'  style='padding-bottom:10px;'>
-          <nuxt-link :to="{ path: '/users/'+index, query: { tweet: JSON.stringify(item) }}">  
+  <div style='margin:0 auto;max-width:700px;'>
+    <div style='padding:8px;'>
+        <div v-for='(item, index) of tweets' :key='index'  style='padding-bottom:10px;'>
+          <nuxt-link :to="{ path: '/weibo/users/'+index, query: { tweet: JSON.stringify(item) }}" >  
             <div style='display:flex;flex-direction:row;'>
               <div style='display:flex;flex-direction:row;justify-content:center;align-items:center;'>
                 <div style='flex:2;background-color:tomato;border-radius:50%;width:70px;height:70px;'>
@@ -41,28 +14,43 @@
                 <div style='font-size:0.8em;'>2-7 13:50:22 </div>
               </div>
             </div>
-
-             <div style='padding:10px;'>
+          </nuxt-link>
+          
+          <nuxt-link :to="{ path: '/weibo/posts/'+index, query: { tweet: JSON.stringify(item) }}">            
+            <div style='padding:10px;'>
               <p style='padding:10px;line-height:1.5em;'>{{item.tweet}}</p>
             </div>
-          </nuxt-link>
+          </nuxt-link>          
+          <div style='display:flex;flex-direction:row;justify-content:space-around;align-items:center;padding:20px; border-top: 0.5px solid lightgrey; border-bottom: 15px solid lightgrey;'>
+            <i style='color:grey;' class='fa fa-external-link'></i>
+            <i style='color:grey;' class='fa fa-folder'></i>
+            <i style='color:grey;' class='fa fa-thumbs-up'></i>
+          </div>
+        </div>
     </div>
 
-       <no-ssr>
+
+     <no-ssr>
 
             <infinite-loading @infinite="infiniteHandler"></infinite-loading>
         </no-ssr>
   </div>
-</div>
 </template>
 
 <script>
+import AppLogo from '~/components/AppLogo.vue';
 import InfiniteLoading from 'vue-infinite-loading';
+// import { Card } from 'bootstrap-vue/es/components';
 
 export default {
+  components: {
+    AppLogo,
+    InfiniteLoading,
+    // Card,
+  },
   data () {
     return { 
-      comments:[],
+      tweets:[],
       list: [
         {
           name: '聪聪',
@@ -97,23 +85,47 @@ export default {
       ]
     }
   },
-  components: {
-    InfiniteLoading,
-  },
   asyncData (context) {
-    return { userid: context.params, tweet: JSON.parse(context.query.tweet) }
+    // console.log(context); 
+    return { name: 'index' }
   },
   methods: {
     infiniteHandler($state) {
-      this.comments = this.comments.concat(this.list)
+      this.tweets = this.tweets.concat(this.list)
       $state.loaded()
+      // this.$nuxt.$router.replace({ path: '/mine' })
     },
   }
 }
 </script>
 
 <style>
-.red {
-  color: red;
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
+  display: block;
+  font-weight: 300;
+  font-size: 100px;
+  color: #35495e;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-weight: 300;
+  font-size: 42px;
+  color: #526488;
+  word-spacing: 5px;
+  padding-bottom: 15px;
+}
+
+.links {
+  padding-top: 15px;
 }
 </style>

@@ -72,17 +72,17 @@ export default {
        $state.loaded()
     },
     hisp(to){
-       history.pushState({},null,'/nuxta/posts/0?tweet=%7B"name"%3A"聪聪","avatar_url"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","images"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","tweet"%3A"评论里留下你的〖生日和所在地〗。看到有缘的就找ta聊聊呗！遇到同一天生日的，互粉一个，以后过生日就不孤单啦！"%7D')
-       history.pushState({},null,'/nuxta/posts/0?tweet=%7B"name"%3A"聪聪","avatar_url"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","images"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","tweet"%3A"评论里留下你的〖生日和所在地〗。看到有缘的就找ta聊聊呗！遇到同一天生日的，互粉一个，以后过生日就不孤单啦！"%7D')
+       history.pushState({},null,'/nuxta/weibo/posts/0?tweet=%7B"name"%3A"聪聪","avatar_url"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","images"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","tweet"%3A"评论里留下你的〖生日和所在地〗。看到有缘的就找ta聊聊呗！遇到同一天生日的，互粉一个，以后过生日就不孤单啦！"%7D')
+       history.pushState({},null,'/nuxta/weibo/posts/0?tweet=%7B"name"%3A"聪聪","avatar_url"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","images"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","tweet"%3A"评论里留下你的〖生日和所在地〗。看到有缘的就找ta聊聊呗！遇到同一天生日的，互粉一个，以后过生日就不孤单啦！"%7D')
       //  history.pushState({},null,to)
-      //  history.replaceState({},null,'/posts/0?tweet=%7B"name"%3A"聪聪","avatar_url"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","images"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","tweet"%3A"评论里留下你的〖生日和所在地〗。看到有缘的就找ta聊聊呗！遇到同一天生日的，互粉一个，以后过生日就不孤单啦！"%7D')
+      //  history.replaceState({},null,'/weibo/posts/0?tweet=%7B"name"%3A"聪聪","avatar_url"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","images"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","tweet"%3A"评论里留下你的〖生日和所在地〗。看到有缘的就找ta聊聊呗！遇到同一天生日的，互粉一个，以后过生日就不孤单啦！"%7D')
       //  history.replaceState({},null,to)
     },
     hisr(to){
       //  history.pushState({},null,to)
       //  history.pushState({},null,to)
-       history.replaceState({},null,'/nuxta/posts/0?tweet=%7B"name"%3A"聪聪","avatar_url"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","images"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","tweet"%3A"评论里留下你的〖生日和所在地〗。看到有缘的就找ta聊聊呗！遇到同一天生日的，互粉一个，以后过生日就不孤单啦！"%7D')
-       history.replaceState({},null,'/nuxta/posts/0?tweet=%7B"name"%3A"聪聪","avatar_url"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","images"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","tweet"%3A"评论里留下你的〖生日和所在地〗。看到有缘的就找ta聊聊呗！遇到同一天生日的，互粉一个，以后过生日就不孤单啦！"%7D')
+       history.replaceState({},null,'/nuxta/weibo/posts/0?tweet=%7B"name"%3A"聪聪","avatar_url"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","images"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","tweet"%3A"评论里留下你的〖生日和所在地〗。看到有缘的就找ta聊聊呗！遇到同一天生日的，互粉一个，以后过生日就不孤单啦！"%7D')
+       history.replaceState({},null,'/nuxta/weibo/posts/0?tweet=%7B"name"%3A"聪聪","avatar_url"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","images"%3A"https%3A%2F%2Fs3.amazonaws.com%2Fuifaces%2Ffaces%2Ftwitter%2Fladylexy%2F128.jpg","tweet"%3A"评论里留下你的〖生日和所在地〗。看到有缘的就找ta聊聊呗！遇到同一天生日的，互粉一个，以后过生日就不孤单啦！"%7D')
       //  history.replaceState({},null,to)
     },
   }
