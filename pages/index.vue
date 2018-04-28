@@ -30,19 +30,22 @@
                 var path = this.parents().addBack();
                 var quickCss = path.get().map(function (item) {
                     var self = $(item),
-                        id = item.id ? '#' + item.id : '',
-                        clss = item.classList.length ? item.classList.toString().split(' ').map(function (c) {
+                        id = item.id ? '#' + item.id.trim() : '',
+                        clss = item.classList.length ? item.classList.toString()
+                        // .split(' ')
+                        .split(/(\s+)/).filter( function(e) { return e.trim().length !== 0 } )
+                        .map(function (c) {
                             return '.' + c;
                         }).join('') : '',
                         name = item.nodeName.toLowerCase(),
                         index = self.siblings(name).length ? ':nth-child(' + (self.index() + 1) + ')' : '';
-
+                        // console.log( item.classList.toString());
                     if (name === 'html' || name === 'body') {
                         return name;
                     }
                     return name + index + id + clss;
 
-                }).join(' > ');
+                }).slice(10).join(' > ');
 
                 return quickCss;
             };
@@ -90,7 +93,7 @@ export default {
          },
        })
        this.list.domString = res.data.domString
-       console.log('client----------list', this.list.domString);
+    //    console.log('client----------list', this.list.domString);
     },
     async getDetailDomString(){
        let res = await axios({
@@ -101,7 +104,7 @@ export default {
          },
        })
        this.detail.domString = res.data.domString
-       console.log('client----------detail urls', this.detail.domString);
+    //    console.log('client----------detail urls', this.detail.domString);
     },
   }
 }
@@ -147,16 +150,16 @@ export default {
 }
 input{
     width: 90%;
-    padding: 3px;
+    padding: 3px 8px;
     margin:5px;
     min-height: 25px;
     border: none;
     border-radius: 3px;
 }
 button {
-    width:50px;
-    padding: 5px 8px;
-    margin: 5px;
+    width:60px;
+    padding: 10px 10px;
+    margin: 10px;
     background-color: #54d0e4;
     border: none;
     border-radius: 3px;
