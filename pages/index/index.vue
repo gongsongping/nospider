@@ -11,7 +11,7 @@ export default {
     return {test:'test'}
   },
   mounted(){
-    this.$router.push({path:'/changeion'})
+    // this.$router.push({path:'/changeion'})
   }
 }
 </script>

@@ -5,13 +5,13 @@
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
         <b-collapse is-nav id="nav_collapse">
           <b-navbar-nav>
-            <nuxt-link  to="/changeion" > 
+            <nuxt-link  to="/" > 
               <div style='color:white;padding:8px;'>首页</div>
             </nuxt-link>
           </b-navbar-nav>
         </b-collapse>
     </b-navbar>
-    <div class="container-fluid" style='padding-top:15px;'>
+    <div class="container-fluid">
       <nuxt />
     </div>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
