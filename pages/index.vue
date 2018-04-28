@@ -19,6 +19,9 @@
           <div id='list-p' >
               <div v-html="list.domString"></div>
           </div>
+          <center>
+            <progress v-if="progress < 100" :value="progress" max="100" style="width:60%;"></progress>
+          </center>
           <div id='detail-p'>
               <div v-html="detail.domString"></div>
 
@@ -78,13 +81,15 @@ export default {
         detail: {
             url:'',
             domString: '',           
-        }
+        },
+        progress: 110
     }
   },
   components: {
   },
   methods: {
     async getListDomString(){
+       this.progress=0 
        let res = await axios({
          url: '/napi/url',
          method:'POST',
@@ -93,9 +98,16 @@ export default {
          },
        })
        this.list.domString = res.data.domString
-    //    console.log('client----------list', this.list.domString);
+       //    console.log('client----------list', this.list.domString);
+       const intl = setInterval(()=>{
+          this.progress+=10
+          if((this.progress>100)&&Boolean(this.detail.domString)){
+            clearInterval(intl)              
+          }
+       },500)
     },
     async getDetailDomString(){
+       this.progress=0 
        let res = await axios({
          url: '/napi/url',
          method:'POST',
@@ -104,7 +116,14 @@ export default {
          },
        })
        this.detail.domString = res.data.domString
-    //    console.log('client----------detail urls', this.detail.domString);
+       //    console.log('client----------detail urls', this.detail.domString);
+       const intl = setInterval(()=>{
+          this.progress+=10
+          if((this.progress>100)&&Boolean(this.detail.domString)){
+            clearInterval(intl)              
+          }
+       },500)
+    
     },
   }
 }
@@ -137,14 +156,14 @@ export default {
 }
 
 #list-p {
-
+    padding: 8px;
     height:50vh;
     border-bottom:1px solid lightgrey;
     overflow:scroll;
 }
 
 #detail-p {
-
+   padding: 8px;
    height:50vh;
    overflow:scroll;
 }
