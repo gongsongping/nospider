@@ -11,7 +11,7 @@ module.exports = {
     // 'bootstrap/dist/css/bootstrap.css',
     // 'bootstrap-vue/dist/bootstrap-vue.css',
     // 项目中的 Sass 文件 @/assets ~/assets all is ok
-    { src: '~assets/css/main.scss', lang: 'scss' } // 指定 scss 而非 sass
+    // { src: '~assets/css/main.scss', lang: 'scss' } // 指定 scss 而非 sass
   ],
   router: {
     // linkActiveClass: 'link-active',

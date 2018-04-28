@@ -1,20 +1,14 @@
 <template>
   <div>
-    <b-navbar sticky toggleable="md" type="dark" variant="info" style='padding:0 15px;'>
-
-      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-        <b-collapse is-nav id="nav_collapse">
-          <b-navbar-nav>
-            <nuxt-link  to="/" > 
-              <div style='color:white;padding:8px;'>首页</div>
-            </nuxt-link>
-          </b-navbar-nav>
-        </b-collapse>
-    </b-navbar>
-    <div class="container-fluid">
+    <div style='width:100vw;background-color:#54d0e4;'>
+      <nuxt-link  to="/" > 
+          <div style='padding:8px;'>首页</div>
+      </nuxt-link>
+    </div>
+    <div>
       <nuxt />
     </div>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+
   </div>
 </template>
 
@@ -30,49 +24,23 @@ html {
   box-sizing: border-box;
 }
 
-a {
-  color: rgb(32, 30, 30);
-}
-
-a:hover {
-    background-color: tomato;
-    text-decoration: none;
-}
-
-*, *:before, *:after {
-  box-sizing: border-box;
+* {
   margin: 0;
   padding: 0;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
+a {
+  color: rgb(32, 30, 30);
   text-decoration: none;
-  padding: 10px 30px;
 }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
+a:hover {
+    color: #b1cace;  
+    background-color: tomato;
+    text-decoration: underline;
 }
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
 
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
 .link-active {
   background-color: grey;
 }
