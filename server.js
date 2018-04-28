@@ -17,7 +17,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/test', function  (req, res, next) {
-    res.json({test:'test'})
+    console.log(req.query.q);
+    res.json({test:req.query.q})
 })
 
 app.post('/napi/url', async function  (req, res, next) {

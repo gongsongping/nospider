@@ -5,6 +5,7 @@
         <div  class='column-1'> 
         </div>
         <div  class='column-2'> 
+            <div id='selected' style='margin:5px;background-color:lightgrey;'></div>
             <div style='padding:5px;'>列表页url</div>
             <input type='text' v-model="list.url">
             <center>  <button @click='getListDomString()'> 显示 </button> </center>
@@ -13,7 +14,6 @@
             <div style='padding:5px;'>详情页url</div>
             <input type='text' v-model="detail.url">
             <center>  <button  @click='getDetailDomString()'> 显示 </button> </center>
-            <div id='selected' style='margin:5px;background-color:lightgrey;'></div>
         </div>
         <div  class='column-3'>
           <div id='list-p' >
@@ -77,12 +77,17 @@ export default {
         list: {
             url:'',
             domString: '',
+            first: '',
+            third: '',
+            skip: 1,
+            start:1,
+            end: 5,
         },
         detail: {
             url:'',
             domString: '',           
         },
-        progress: 110
+        progress: 102
     }
   },
   components: {
@@ -90,6 +95,12 @@ export default {
   methods: {
     async getListDomString(){
        this.progress=0 
+       const intl = setInterval(()=>{
+          this.progress+=10
+          if((this.progress>100)&&Boolean(this.detail.domString)){
+            clearInterval(intl)              
+          }
+       },500)
        let res = await axios({
          url: '/napi/url',
          method:'POST',
@@ -99,15 +110,15 @@ export default {
        })
        this.list.domString = res.data.domString
        //    console.log('client----------list', this.list.domString);
+    },
+    async getDetailDomString(){
+       this.progress=0 
        const intl = setInterval(()=>{
           this.progress+=10
           if((this.progress>100)&&Boolean(this.detail.domString)){
             clearInterval(intl)              
           }
        },500)
-    },
-    async getDetailDomString(){
-       this.progress=0 
        let res = await axios({
          url: '/napi/url',
          method:'POST',
@@ -117,12 +128,6 @@ export default {
        })
        this.detail.domString = res.data.domString
        //    console.log('client----------detail urls', this.detail.domString);
-       const intl = setInterval(()=>{
-          this.progress+=10
-          if((this.progress>100)&&Boolean(this.detail.domString)){
-            clearInterval(intl)              
-          }
-       },500)
     
     },
   }
@@ -157,14 +162,14 @@ export default {
 
 #list-p {
     padding: 8px;
-    height:50vh;
+    height:40vh;
     border-bottom:1px solid lightgrey;
     overflow:scroll;
 }
 
 #detail-p {
    padding: 8px;
-   height:50vh;
+   height:60vh;
    overflow:scroll;
 }
 input{
