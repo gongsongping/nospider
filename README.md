@@ -1,4 +1,4 @@
-# nuxta
+# nospider
 
 > nuxttest
 

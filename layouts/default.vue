@@ -8,12 +8,6 @@
             <nuxt-link  to="/changeion" > 
               <div style='color:white;padding:8px;'>首页</div>
             </nuxt-link>
-            <nuxt-link  to="/weibo" >
-            <div style='color:white;padding:8px;'> 微博  </div> 
-            </nuxt-link>
-            <nuxt-link to="/weibo/write"  >
-              <div style='color:white;padding:8px;'>  <i style='color:white;' class='fa fa-plus'></i>  </div>        
-            </nuxt-link>
           </b-navbar-nav>
         </b-collapse>
     </b-navbar>

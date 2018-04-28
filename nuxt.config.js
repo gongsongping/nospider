@@ -1,6 +1,6 @@
 const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
   router: {
-    base: '/nuxta/'
+    base: '/nospider/'
   }
 } : {}
 
@@ -16,11 +16,11 @@ module.exports = {
   router: {
     // linkActiveClass: 'link-active',
     linkExactActiveClass:'link-exact-active',
-    base: '/nuxta/',
+    base: '/nospider/',
   },
   // mode: 'spa',
   head: {
-    title: 'nuxta',
+    title: 'nospider',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
