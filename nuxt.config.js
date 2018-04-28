@@ -26,6 +26,9 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'nuxttest' }
     ],
+    // script: [
+    //   { src: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js' }
+    // ], //不如直接在.vue页面用script引用
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' }
@@ -55,6 +58,7 @@ module.exports = {
     }
   },
   plugins: [
+    // { src: '~/node_modules/jquery/dist/jquery.min.js', ssr: false }, //不如直接在.vue页面用script引用//当在服务端渲染时会Error: jQuery requires a window with a document, 所以ssr false
     { src: '~/plugins/bootstrap.js', ssr: true },
     // { src: '~/plugins/axios.js', ssr: true }, //当没有用到Vue.use(..)的时候,不用在这里引入
   ],
