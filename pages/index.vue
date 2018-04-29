@@ -19,7 +19,7 @@
             
             </div>
             <h4 style='text-align:center;'>翻页-pagination</h4>
-            <div style="text-align:right;">  <button  @click="guidePagi=!guidePagi" > <span v-show="guidePagi">关闭</span>使用说明 <span v-show="!guidePagi">....</span> </button>  </div>               
+            <div style="text-align:right;">  <button  @click="guidePagi=!guidePagi" > <span v-show="guidePagi">关闭</span>使用指南 <span v-show="!guidePagi">....</span> </button>  </div>               
             <div v-show="guidePagi" style="background-color:#54d0e4;padding:5px;">
                 抓取数据前请仔细研究要抓取的 url, 大部分网站的 url 都是有规律的 <br>
                 翻页-pagination有两种形式, 如下: <br>
@@ -32,22 +32,47 @@
             <div style="padding-left:10px;">
                 <h5 >url前半段</h5>
                 <input type='text' v-model="rule.first">
+                <hr>
                 <h5> url变化段</h5>
-                <div>起始 <input type='number' v-model="rule.start" style="width:40%;padding-left:10px;"></div>
-                <div>间隔 <input type='number' v-model="rule.step" style="width:40%;padding-left:10px;"></div>
-                <div>次数 <input type='number' v-model="rule.times" style="width:40%;padding-left:10px;"></div>
+                <div style="display:flex;align-items;center;">
+                    起始: <input type='number' v-model="rule.start" style="width:250%;padding-left:5px;">
+                    间隔: <input type='number' v-model="rule.step" style="width:250%;padding-left:5px;">
+                    次数: <input type='number' v-model="rule.times" style="width:250%;padding-left:5px;">
+                </div>
+                <hr>
                 <h5>url后半段(没有可以空白)</h5>
                 <input type='text' v-model="rule.third">
             </div>
+            <hr>
             <h4 style='text-align:center;'>详情页链接路径</h4>
             <div style="align-items;center;">
-                <p style="font-size: 0.7em;">请在右上方的列表页点击详情页链接所在位置, 并复制路径到下面输入框</p>
+                <p style="font-size: 0.7em;">在右上方的列表页点击详情页链接位置, 并复制路径到下面</p>
                 <div>
                     <input type='text' v-model="rule.detailPath" >
                 </div>
             </div>   
+            <hr>
             <h4 style='text-align:center;'>抓取字段</h4>
-                        
+            <button @click="rule.fields.push({name:'',path:'',type:'text'})"> 添加字段 </button>                
+            <table>
+               <tr> <th>字段名</th> <th>路径</th> <th>类型</th> <th>删除</th> </tr>
+              <tr  v-for="(f,index) in rule.fields" :key="index">
+                 <td> <input type='text' v-model="f.name" style="width: 70px; margin: 0; border:0.5px solid lightgrey;"></td>
+                 <td> <input type='text' v-model="f.path" style="width: 140px; margin: 0; border:0.5px solid lightgrey;">  </td>
+                 <td> 
+                     <select v-model="f.type">
+                        <option value="text"> 文本 </option>
+                        <option value="image"> 图片 </option>
+                        <option value="link"> 链接 </option>
+                     </select> 
+                </td>
+                <td @click="rule.fields.splice(index,1)">
+                 <span style="margin-left:5px;color:tomato;">x</span>
+                </td>
+              </tr>
+            
+            </table>
+            
          </div>
         <div  class='column-3'>
           <div id='list-p' >
@@ -113,6 +138,10 @@ export default {
             url:'',
             domString: '',
         },
+        detail: {
+            url:'',
+            domString: '',           
+        },
         rule :{
              first: '',
             third: '',
@@ -120,11 +149,7 @@ export default {
             step: 1,
             times: 5,
             detailPath: '',
-            fields: [],
-        },
-        detail: {
-            url:'',
-            domString: '',           
+            fields: [{name:'',path:'',type:'text'}],
         },
         progress: 102,
         guidePagi: false,
@@ -232,5 +257,28 @@ button {
 }
 button:hover{
     background-color: tomato;   
+}
+
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 2px;
+}
+th:nth-child(1), td:nth-child(1) {
+    width: 25%;
+}
+th:nth-child(2), td:nth-child(2) {
+    width: 50%;
+}
+th:nth-child(3), td:nth-child(3) {
+    width: 25%;
 }
 </style>
