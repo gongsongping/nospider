@@ -5,20 +5,55 @@
         <div  class='column-1'> 
         </div>
         <div  class='column-2'> 
-            <div id='selected' style='margin:5px;background-color:lightgrey;'></div>
-            <div style='padding:5px;'>列表页url</div>
-            <input type='text' v-model="list.url">
-            <center>  <button @click='getListDomString()'> 显示 </button> </center>
+            <h4 style='text-align:center;margin-top:10px;'>列表页url</h4>
+            <div style="display:flex;align-items;center;">
+            
+                <input type='text' v-model="list.url" style="width:70%;">
+                <center>  <button @click='getListDomString()'> 显示&nbsp;>> </button> </center>   
+            </div>
 
-            <div style='padding:5px;'></div>
-            <div style='padding:5px;'>详情页url</div>
-            <input type='text' v-model="detail.url">
-            <center>  <button  @click='getDetailDomString()'> 显示 </button> </center>
-        </div>
+            <h4 style='text-align:center;'>详情页url</h4>
+            <div style="display:flex;align-items;center;">
+                <input type='text' v-model="detail.url" style="width:70%;">
+                <center>  <button  @click='getDetailDomString()'> 显示&nbsp;>> </button> </center>   
+            
+            </div>
+            <h4 style='text-align:center;'>翻页-pagination</h4>
+            <div style="text-align:right;">  <button  @click="guidePagi=!guidePagi" > <span v-show="guidePagi">关闭</span>使用说明 <span v-show="!guidePagi">....</span> </button>  </div>               
+            <div v-show="guidePagi" style="background-color:#54d0e4;padding:5px;">
+                抓取数据前请仔细研究要抓取的 url, 大部分网站的 url 都是有规律的 <br>
+                翻页-pagination有两种形式, 如下: <br>
+                1.如 https://news.ycombinator.com/news?p=2&fi=no <br>
+                此时url的前半段是 https://news.ycombinator.com/news?p=, 变化段是 2, 后半段是 &fi=no <br>
+                2.如 https://www.lagou.com/zhaopin/Java/4/?filterOption=3 <br>
+                此时url的前半段是  https://www.lagou.com/zhaopin/Java/, 变化段是 4, 后半段是 /?filterOption=3
+            
+            </div>
+            <div style="padding-left:10px;">
+                <h5 >url前半段</h5>
+                <input type='text' v-model="rule.first">
+                <h5> url变化段</h5>
+                <div>起始 <input type='number' v-model="rule.start" style="width:40%;padding-left:10px;"></div>
+                <div>间隔 <input type='number' v-model="rule.step" style="width:40%;padding-left:10px;"></div>
+                <div>次数 <input type='number' v-model="rule.times" style="width:40%;padding-left:10px;"></div>
+                <h5>url后半段(没有可以空白)</h5>
+                <input type='text' v-model="rule.third">
+            </div>
+            <h4 style='text-align:center;'>详情页链接路径</h4>
+            <div style="align-items;center;">
+                <p style="font-size: 0.7em;">请在右上方的列表页点击详情页链接所在位置, 并复制路径到下面输入框</p>
+                <div>
+                    <input type='text' v-model="rule.detailPath" >
+                </div>
+            </div>   
+            <h4 style='text-align:center;'>抓取字段</h4>
+                        
+         </div>
         <div  class='column-3'>
           <div id='list-p' >
               <div v-html="list.domString"></div>
           </div>
+            <div id='selected' style='margin:5px;background-color:#b0e9f3;'></div>
           <center>
             <progress v-if="progress < 100" :value="progress" max="100" style="width:60%;"></progress>
           </center>
@@ -77,17 +112,23 @@ export default {
         list: {
             url:'',
             domString: '',
-            first: '',
+        },
+        rule :{
+             first: '',
             third: '',
-            skip: 1,
             start:1,
-            end: 5,
+            step: 1,
+            times: 5,
+            detailPath: '',
+            fields: [],
         },
         detail: {
             url:'',
             domString: '',           
         },
-        progress: 102
+        progress: 102,
+        guidePagi: false,
+        guideHome: false, 
     }
   },
   components: {
@@ -97,7 +138,7 @@ export default {
        this.progress=0 
        const intl = setInterval(()=>{
           this.progress+=10
-          if((this.progress>100)&&Boolean(this.detail.domString)){
+          if((this.progress>100)&&Boolean(this.list.domString)){
             clearInterval(intl)              
           }
        },500)
@@ -181,9 +222,9 @@ input{
     border-radius: 3px;
 }
 button {
-    width:60px;
-    padding: 10px 10px;
-    margin: 10px;
+    min-width:60px;
+    padding: 5px;
+    margin: 5px;
     background-color: #54d0e4;
     border: none;
     border-radius: 3px;
