@@ -25,7 +25,7 @@ app.post('/napi/url', async function  (req, res, next) {
     console.log('----------body-parser',req.body.url);
     if (!req.body.url){return}
     let resp = await axios.get(req.body.url)
-    console.log(resp.data);
+    // console.log(resp.data);
     res.json({domString: resp.data})
 })
 
