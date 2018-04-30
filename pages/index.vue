@@ -5,19 +5,19 @@
         <div  class='column-1'> 
         </div>
         <div  class='column-2' style="overflow-y:scroll;">             
-            <center>
+            <div style="text-align:right;">
                 <button @click="beginScrawl()" id="beginbtn">开始抓取</button> 
-            </center> 
+            </div> 
 
             <h4 style='text-align:center;'>翻页-pagination</h4>
             <div style="text-align:right;">  <button  @click="guidePagi=!guidePagi" > <span v-show="guidePagi">关闭</span>使用指南 <span v-show="!guidePagi">....</span> </button>  </div>               
             <div v-show="guidePagi" style="background-color:#cceff6;padding:5px;font-size:0.8em;">
                <p> 抓取数据前请仔细研究要抓取的 url, 大部分网站的 url 都是有规律的 </p>
                <p>翻页-pagination有两种形式, 如下: </p> 
-               <p> 1.如 https://news.ycombinator.com/news?p=<span style="background-color:tomato;">2</span>&fi=no,  https://news.ycombinator.com/news?p=<span style="background-color:tomato;">3</span>&fi=no </p>
-               <p> 此时url的前段是 https://news.ycombinator.com/news?p=, 变化段是 <span style="background-color:tomato;">[2,3]</span>, 后段是 &fi=no </p> 
-               <p> 2.如 https://www.lagou.com/zhaopin/Java/<span style="background-color:tomato;">4</span>/?filterOption=3, https://www.lagou.com/zhaopin/Java/<span style="background-color:tomato;">5</span>/?filterOption=3 </p>
-               <p> 此时url的前段是  https://www.lagou.com/zhaopin/Java/, 变化段是<span style="background-color:tomato;">[4,5]</span> , 后段是 /?filterOption=3 </p>
+               <p> 1.如 https://news.ycombinator.com/news?p=<span style="color:tomato;">2</span>&fi=no,  https://news.ycombinator.com/news?p=<span style="color:tomato;">3</span>&fi=no </p>
+               <p> 此时url的前段是 https://news.ycombinator.com/news?p=, 变化段是 <span style="color:tomato;">[2,3]</span>, 后段是 &fi=no </p> 
+               <p> 2.如 https://www.lagou.com/zhaopin/Java/<span style="color:tomato;">4</span>/?filterOption=3, https://www.lagou.com/zhaopin/Java/<span style="color:tomato;">5</span>/?filterOption=3 </p>
+               <p> 此时url的前段是  https://www.lagou.com/zhaopin/Java/, 变化段是<span style="color:tomato;">[4,5]</span> , 后段是 /?filterOption=3 </p>
             
             </div>
             <div style="padding-left:10px;margin-bottom:5px;">
@@ -34,11 +34,11 @@
                 <h5>3. url后段(没有可以空白)</h5>
                 <input @input="paginations()" type='text' v-model="rule.third">
                 <div v-show="rule.generatefi" style="background-color:#cceff6;margin:5px;padding:5px;font-size:0.8em;">
-                    将产生如下urls, 检查是否如预期  <span @click="rule.generatefi=false" style="margin-left:30px;color:tomato;font-size:1.2em;display:inline-block;">x</span><br>
+                    将产生如下urls, 检查是否如预期  <span @click="rule.generatefi=false" style="margin-left:30px;background-color:tomato;font-size:1.2em;display:inline-block;padding:5px;">确定</span><br>
                   <div> urlps: {{rule.urlps}} </div>
-                   <p>{{rule.first}}<span style="background-color:tomato;">{{rule.urlps[0]}}</span>{{rule.third}}</p>
-                   <p v-if="rule.urlps[1]">{{rule.first}}<span style="background-color:tomato;">{{rule.urlps[1]}}</span>{{rule.third}}</p>
-                   <p v-if="rule.urlps[2]">{{rule.first}}<span style="background-color:tomato;">{{rule.urlps[2]}}</span>{{rule.third}}</p>
+                   <p>{{rule.first}}<span style="color:tomato;">{{rule.urlps[0]}}</span>{{rule.third}}</p>
+                   <p v-if="rule.urlps[1]">{{rule.first}}<span style="color:tomato;">{{rule.urlps[1]}}</span>{{rule.third}}</p>
+                   <p v-if="rule.urlps[2]">{{rule.first}}<span style="color:tomato;">{{rule.urlps[2]}}</span>{{rule.third}}</p>
                    <p style="text-align:center;">...........</p>
                 </div>
             </div>
@@ -50,9 +50,9 @@
                <tr> <th>字段名</th> <th>css选择器</th> <th>类型</th> <th>删除</th> </tr>
               <tr  v-for="(f,index) in rule.fields" :key="index">
                  <td> <input type='text' v-model="f.name" style="max-width: 70px; margin: 0; border:0.5px solid lightgrey;"></td>
-                 <td> <input type='text' v-model="f.path" style="max-width: 140px; margin: 0; border:0.5px solid lightgrey;">  </td>
+                 <td> <input type='text' @input="checkCss(f)" v-model="f.path" style="max-width: 140px; margin: 0; border:0.5px solid lightgrey;">  </td>
                  <td> 
-                     <select v-model="f.type">
+                     <select @change="checkCss(f)" v-model="f.type">
                         <option value="text"> 文本 </option>
                         <option value="image"> 图片链接 </option>
                         <option value="link"> 链接 </option>
@@ -220,6 +220,24 @@ export default {
 
     //    this.rule.generated = [`${this.rule.first}${this.rule.urlps[0]}${this.rule.third}`,`${this.rule.first}${this.rule.urlps[1]}${this.rule.third}`,'..........']
        this.rule.generatefi = true
+    },
+    checkCss (f){
+        try {
+            document.querySelector(f.path);
+        } catch (e) {
+            alert(f.name+'字段css选择器错误无效')
+        }       
+        if (document.querySelector(f.path)===null) {alert(f.name+'字段css选择器无效'); return}
+        if (f.type==='image'){
+                // if (f.path.indexOf('> img') < 0 ){ alert(f.name+'字段css选择器里没有图片image'); return }
+            let last = f.path.split('>').reverse()[0].trim().slice(0,3)
+            if (last!=='img') { alert(f.name+'图片选择器最后一个元素应该为img' ) }
+        }
+        if (f.type==='link'){
+                // if (f.path.indexOf('> a') < 0){ alert(f.name+'字段css选择器里没有有效链接a'); return }
+            let last = f.path.split('>').reverse()[0].trim()[0]
+            if (last!=='a') { alert(f.name+'链接选择器最后一个元素应该为a' ) }
+        }
     },
     async beginScrawl(){
         if (!this.rule.first){alert('url前段不能为空'); return}
