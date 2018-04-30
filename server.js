@@ -72,8 +72,8 @@ app.post('/napi/scrawl', function  (req, res, next) {
         console.log('-----fullurl--',rule.first+p+rule.third);
         axios.get(rule.first+p+rule.third)
         .then(function (resp) {
+            console.log('-----scrawling-page--',p,'---');
             p+=rule.step
-            console.log('-----p--',p,'---');
             // let $ = cheerio.load(resp.data);
             // $('a').filter(`[href*=${detailword}]`).each(function(i,a){console.log('------',a.__proto__)})
             // $('tr.athing:has(td.votelinks)').each(function( index ) {
