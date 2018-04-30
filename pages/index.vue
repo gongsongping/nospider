@@ -34,17 +34,7 @@
                 <h5>3. url后半段(没有可以空白)</h5>
                 <input type='text' v-model="rule.third">
             </div>
-            <hr>
-            <div style="padding-left:10px;margin-bottom:5px;">
-
-                <h4 style='text-align:center;'>详情页链接css选择器</h4>
-                <div style="align-items;center;">
-                    <p style="font-size: 0.7em;">在右上方的列表页点击详情页链接位置, 并复制css选择器到下面</p>
-                    <div>
-                        <input type='text' v-model="rule.detailPath" >
-                    </div>
-                </div>   
-            </div>   
+            
             <hr>
             <h4 style='text-align:center;'>抓取字段</h4>
             <button @click="rule.fields.push({name:'',path:'',type:'text'})"> 添加字段 </button>                
@@ -69,9 +59,9 @@
             
          </div>
         <div  class='column-3'>
-            <div style="display:flex;align-items;center;">
+            <div style="display:flex;align-items;center;margin-top:5px;">
                 <h5 style='text-align:center;'>列表页&nbsp;&nbsp;</h5>
-                <input type='text' v-model="list.url" style="margin:0;padding:2px;height:20px;border:0.5px solid lightgrey;width:70%;">
+                <input  @change='getListDomString()' type='text' v-model.lazy="rule.listurl" class="list-detail-input">
                 <center>  <button @click='getListDomString()'> 显示&nbsp;v </button> </center>   
             </div>
           <div id='list-p' >
@@ -84,7 +74,7 @@
           <div id='selected' style='margin:5px;background-color:#b0e9f3;'></div>
           <div style="display:flex;align-items;center;">
                 <h5 style='text-align:center;'>详情页&nbsp;&nbsp;</h5>
-                <input type='text' v-model="detail.url" style="margin:0;padding:2px;height:20px;border:0.5px solid lightgrey;width:70%;">
+                <input @change='getDetailDomString()' type='text' v-model="rule.detailurl" class="list-detail-input">
                 <center>  <button @click='getDetailDomString()'> 显示&nbsp;v </button> </center>   
           </div>
           <div id='detail-p'>
@@ -148,12 +138,14 @@ export default {
             domString: '',           
         },
         rule :{
+            project:'test',
             first: '',
             third: '',
             start: 1,
             step: 1,
             times: 5,
-            detailPath: '',
+            listurl:'',
+            detailurl: '',
             fields: [{name:'',path:'',type:'text'}],
         },
         progress: 102,
@@ -176,7 +168,7 @@ export default {
          url: '/napi/url',
          method:'POST',
          data:{
-           url: this.list.url
+           url: this.rule.listurl
          },
        })
        this.list.domString = res.data.domString
@@ -194,7 +186,7 @@ export default {
          url: '/napi/url',
          method:'POST',
          data:{
-           url: this.detail.url
+           url: this.rule.detailurl
          },
        })
        this.detail.domString = res.data.domString
@@ -203,20 +195,13 @@ export default {
     },
     async beginScrawl(){
         if (!this.rule.first){alert('url前半段不能为空'); return}
-        if (!this.rule.third){alert('url后半段不能为空'); return}
+        // if (!this.rule.third){alert('url后半段不能为空'); return}
         if (!this.rule.start){alert('起始不能为空'); return}
         if (!this.rule.step){alert('间隔不能为空'); return}
         if (!this.rule.times){alert('次数不能为空'); return}
-        if (!this.rule.detailPath){alert('详情页css选择器不能为空'); return}
-        try {
-            document.querySelector(this.rule.detailPath);
-        } catch (e) {
-            alert('详情页css选择器错误无效')
-        }
-        // let dpt = this.rule.detailPath.trim()
-        // if ( (dpt[0]==='>')|(dpt[dpt.length-1]==='>') ) {alert('详情页css选择器不能以>开头或结尾'); return}        
-        if (document.querySelector(this.rule.detailPath)===null) {alert('详情页css选择器无效'); return}        
-        if (this.rule.detailPath.indexOf('> a') < 0 ){ alert('详情页css选择器里没有有效链接a'); return }
+        if (!this.rule.detailurl){alert('详情页url不能为空'); return}
+        if (!this.rule.listurl){alert('列表页url不能为空'); return}
+       
         this.rule.fields.forEach(function(f,i){
             if (!f.name){alert('第'+(i+1)+'字段名字不能为空'); return}
             if (!f.path){alert('第'+(i+1)+'字段css选择器不能为空'); return}
@@ -234,6 +219,13 @@ export default {
             }
         })
         
+        let res = await axios({
+            url: '/napi/scrawl',
+            method:'POST',
+            data:{
+               rule: this.rule
+            },
+        })
 
     }
   }
@@ -286,6 +278,15 @@ input{
     border: none;
     border-radius: 3px;
 }
+
+.list-detail-input {
+    margin:0;
+    padding:2px;
+    height:20px;
+    border:0.5px solid lightgrey;
+    width:70%;
+}
+
 button {
     min-width:60px;
     padding: 5px;
