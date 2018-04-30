@@ -4,35 +4,43 @@
 
         <div  class='column-1'> 
         </div>
-        <div  class='column-2'>             
+        <div  class='column-2' style="overflow-y:scroll;">             
             <center>
                 <button @click="beginScrawl()" id="beginbtn">开始抓取</button> 
             </center> 
 
             <h4 style='text-align:center;'>翻页-pagination</h4>
             <div style="text-align:right;">  <button  @click="guidePagi=!guidePagi" > <span v-show="guidePagi">关闭</span>使用指南 <span v-show="!guidePagi">....</span> </button>  </div>               
-            <div v-show="guidePagi" style="background-color:#54d0e4;padding:5px;">
-                抓取数据前请仔细研究要抓取的 url, 大部分网站的 url 都是有规律的 <br>
-                翻页-pagination有两种形式, 如下: <br>
-                1.如 https://news.ycombinator.com/news?p=2&fi=no <br>
-                此时url的前半段是 https://news.ycombinator.com/news?p=, 变化段是 2, 后半段是 &fi=no <br>
-                2.如 https://www.lagou.com/zhaopin/Java/4/?filterOption=3 <br>
-                此时url的前半段是  https://www.lagou.com/zhaopin/Java/, 变化段是 4, 后半段是 /?filterOption=3
+            <div v-show="guidePagi" style="background-color:#cceff6;padding:5px;font-size:0.8em;">
+               <p> 抓取数据前请仔细研究要抓取的 url, 大部分网站的 url 都是有规律的 </p>
+               <p>翻页-pagination有两种形式, 如下: </p> 
+               <p> 1.如 https://news.ycombinator.com/news?p=<span style="background-color:tomato;">2</span>&fi=no,  https://news.ycombinator.com/news?p=<span style="background-color:tomato;">3</span>&fi=no </p>
+               <p> 此时url的前段是 https://news.ycombinator.com/news?p=, 变化段是 <span style="background-color:tomato;">[2,3]</span>, 后段是 &fi=no </p> 
+               <p> 2.如 https://www.lagou.com/zhaopin/Java/<span style="background-color:tomato;">4</span>/?filterOption=3, https://www.lagou.com/zhaopin/Java/<span style="background-color:tomato;">5</span>/?filterOption=3 </p>
+               <p> 此时url的前段是  https://www.lagou.com/zhaopin/Java/, 变化段是<span style="background-color:tomato;">[4,5]</span> , 后段是 /?filterOption=3 </p>
             
             </div>
             <div style="padding-left:10px;margin-bottom:5px;">
-                <h5 >1. url前半段</h5>
-                <input type='text' v-model="rule.first">
+                <h5 >1. url前段</h5>
+                <input @input="paginations()" type='text' v-model="rule.first">
 
                 <h5> 2. url变化段</h5>
                 <div style="display:flex;align-items;center;">
-                    起始: <input type='number' v-model="rule.start" style="width:250%;padding-left:5px;">
-                    间隔: <input type='number' v-model="rule.step" style="width:250%;padding-left:5px;">
-                    次数: <input type='number' v-model="rule.times" style="width:250%;padding-left:5px;">
+                    起始: <input @input="paginations()" type='number' v-model="rule.start" style="padding-left:5px;">
+                    间隔: <input @input="paginations()" type='number' v-model="rule.step" style="padding-left:5px;">
+                    次数: <input @input="paginations()" type='number' v-model="rule.times" style="padding-left:5px;">
                 </div>
 
-                <h5>3. url后半段(没有可以空白)</h5>
-                <input type='text' v-model="rule.third">
+                <h5>3. url后段(没有可以空白)</h5>
+                <input @input="paginations()" type='text' v-model="rule.third">
+                <div v-show="rule.generatefi" style="background-color:#cceff6;margin:5px;padding:5px;font-size:0.8em;">
+                    将产生如下urls, 检查是否如预期  <span @click="rule.generatefi=false" style="margin-left:30px;color:tomato;font-size:1.2em;display:inline-block;">x</span><br>
+                  <div> urlps: {{rule.urlps}} </div>
+                   <p>{{rule.first}}<span style="background-color:tomato;">{{rule.urlps[0]}}</span>{{rule.third}}</p>
+                   <p v-if="rule.urlps[1]">{{rule.first}}<span style="background-color:tomato;">{{rule.urlps[1]}}</span>{{rule.third}}</p>
+                   <p v-if="rule.urlps[2]">{{rule.first}}<span style="background-color:tomato;">{{rule.urlps[2]}}</span>{{rule.third}}</p>
+                   <p style="text-align:center;">...........</p>
+                </div>
             </div>
             
             <hr>
@@ -143,7 +151,10 @@ export default {
             third: '',
             start: 1,
             step: 1,
-            times: 5,
+            times: 3,
+            generated:[],
+            generatefi: false,
+            urlps: [],
             listurl:'',
             detailurl: '',
             fields: [{name:'',path:'',type:'text'}],
@@ -193,9 +204,26 @@ export default {
        //    console.log('client----------detail urls', this.detail.domString);
     
     },
+    paginations (){
+       if (!this.rule.first){ return}
+       if (!this.rule.start){ return}
+       if (!this.rule.step){ return}
+       if (!this.rule.times){ return}
+
+       this.rule.urlps = []
+       let p=parseInt(this.rule.start)
+       
+       for (let i=0;i<parseInt(this.rule.times);i++){
+           this.rule.urlps.push(p)
+           p+=parseInt(this.rule.step)
+       }
+
+    //    this.rule.generated = [`${this.rule.first}${this.rule.urlps[0]}${this.rule.third}`,`${this.rule.first}${this.rule.urlps[1]}${this.rule.third}`,'..........']
+       this.rule.generatefi = true
+    },
     async beginScrawl(){
-        if (!this.rule.first){alert('url前半段不能为空'); return}
-        // if (!this.rule.third){alert('url后半段不能为空'); return}
+        if (!this.rule.first){alert('url前段不能为空'); return}
+        // if (!this.rule.third){alert('url后段不能为空'); return}
         if (!this.rule.start){alert('起始不能为空'); return}
         if (!this.rule.step){alert('间隔不能为空'); return}
         if (!this.rule.times){alert('次数不能为空'); return}
@@ -248,7 +276,7 @@ export default {
     vertical-align: top;
     border-left:1px solid lightgrey;
     padding:1px;
-    height:100vh;    
+    height:130vh;    
 }
 
 .column-3{
@@ -329,6 +357,10 @@ th:nth-child(2), td:nth-child(2) {
 }
 th:nth-child(3), td:nth-child(3) {
     width: 25%;
+}
+
+p:nth-of-type(odd){
+    background-color: snow;
 }
 
 </style>

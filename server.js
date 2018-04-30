@@ -64,16 +64,17 @@ app.post('/napi/url', async function  (req, res, next) {
 app.post('/napi/scrawl', function  (req, res, next) {
     console.log('----------body-parser-body',req.body);
     const rule = req.body.rule
-    let p = rule.start
+    // let p = rule.start
     let url = new URL(rule.detailurl);
     let detailword = url.pathname.split('/')[1]
-    console.log('-----detailword---',detailword);
-    for(let i=0;i<rule.times;i++){
+    let urlps = rule.urlps
+    console.log('-----detailword---',detailword,'---urlps---',urlps);
+    
+    urlps.forEach((p, idx) => {
         console.log('-----fullurl--',rule.first+p+rule.third);
         axios.get(rule.first+p+rule.third)
         .then(function (resp) {
             console.log('-----scrawling-page--',p,'---');
-            p+=rule.step
             // let $ = cheerio.load(resp.data);
             // $('a').filter(`[href*=${detailword}]`).each(function(i,a){console.log('------',a.__proto__)})
             // $('tr.athing:has(td.votelinks)').each(function( index ) {
@@ -82,19 +83,23 @@ app.post('/napi/scrawl', function  (req, res, next) {
             //     fs.appendFileSync('hackernews.txt', title + '\n' + link + '\n');
             // });
 
-            let { window } = new JSDOM(resp.data, {
-                url: url.origin,
-                referrer: url.origin,
-                contentType: "text/html",
-                userAgent: "Mellblomenator/9000",
-                includeNodeLocations: true
-            });
-            let $ = require('jquery')(window);
+            // let { window } = new JSDOM(resp.data, {
+            //     url: url.origin,
+            //     referrer: url.origin,
+            //     contentType: "text/html",
+            //     userAgent: "Mellblomenator/9000",
+            //     includeNodeLocations: true
+            // });
+            // let $ = require('jquery')(window);
 
-            $('a').filter(`[href*=${detailword}]`).each(function(i,a){console.log('------',a.href)})
+            // $('a').filter(`[href*=${detailword}]`).each(function(i,a){console.log('------',a.href)})
             
         })
-    }
+    });
+
+    // for(let i=0;i<rule.times;i++){
+
+    // }
 
     res.json({ok:'ok'})
 
