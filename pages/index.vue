@@ -34,7 +34,7 @@
                 <h5>3. url后段(没有可以空白)</h5>
                 <input @input="paginations()" type='text' v-model="rule.third">
                 <div v-show="rule.generatefi" style="background-color:#cceff6;margin:5px;padding:5px;font-size:0.8em;">
-                    将产生如下urls, 检查是否如预期  <span @click="rule.generatefi=false" style="margin-left:30px;background-color:tomato;font-size:1.2em;display:inline-block;padding:5px;">确定</span><br>
+                    将产生如下urls, 检查是否如预期  <span @click="rule.generatefi=false" style="margin-left:30px;background-color:tomato;font-size:1.2em;display:inline-block;padding:3px;">确定</span><br>
                   <div> urlps: {{rule.urlps}} </div>
                    <p>{{rule.first}}<span style="color:tomato;">{{rule.urlps[0]}}</span>{{rule.third}}</p>
                    <p v-if="rule.urlps[1]">{{rule.first}}<span style="color:tomato;">{{rule.urlps[1]}}</span>{{rule.third}}</p>
@@ -222,22 +222,19 @@ export default {
        this.rule.generatefi = true
     },
     checkCss (f){
-        try {
-            document.querySelector(f.path);
-        } catch (e) {
-            alert(f.name+'字段css选择器错误无效')
-        }       
-        if (document.querySelector(f.path)===null) {alert(f.name+'字段css选择器无效'); return}
+        $(f.path).css('background-color','initial')
+        if ($(f.path).get(0)===undefined) {alert(f.name+'字段css选择器无效'); f.path=''; return}
         if (f.type==='image'){
-                // if (f.path.indexOf('> img') < 0 ){ alert(f.name+'字段css选择器里没有图片image'); return }
+            // if (f.path.indexOf('> img') < 0 ){ alert(f.name+'字段css选择器里没有图片image'); return }
             let last = f.path.split('>').reverse()[0].trim().slice(0,3)
-            if (last!=='img') { alert(f.name+'图片选择器最后一个元素应该为img' ) }
+            if (last!=='img') { alert(f.name+'图片选择器最后一个元素应该为img' ); f.path=''; return }
         }
         if (f.type==='link'){
-                // if (f.path.indexOf('> a') < 0){ alert(f.name+'字段css选择器里没有有效链接a'); return }
+            // if (f.path.indexOf('> a') < 0){ alert(f.name+'字段css选择器里没有有效链接a'); return }
             let last = f.path.split('>').reverse()[0].trim()[0]
-            if (last!=='a') { alert(f.name+'链接选择器最后一个元素应该为a' ) }
+            if (last!=='a') { alert(f.name+'链接选择器最后一个元素应该为a' ); f.path=''; return }
         }
+        $(f.path).css('background-color','tomato')
     },
     async beginScrawl(){
         if (!this.rule.first){alert('url前段不能为空'); return}
@@ -251,12 +248,9 @@ export default {
         this.rule.fields.forEach(function(f,i){
             if (!f.name){alert('第'+(i+1)+'字段名字不能为空'); return}
             if (!f.path){alert('第'+(i+1)+'字段css选择器不能为空'); return}
-            try {
-                document.querySelector(f.path);
-            } catch (e) {
-                alert('第'+(i+1)+'字段css选择器错误无效')
-            }       
-            if (document.querySelector(f.path)===null) {alert('第'+(i+1)+'字段css选择器无效'); return}
+
+            // if (document.querySelector(f.path)===null) {alert('第'+(i+1)+'字段css选择器无效'); return}
+            if ($(f.path).get(0)===undefined) {alert('第'+(i+1)+'字段css选择器无效'); return}
             if (f.type==='image'){
                   if (f.path.indexOf('> img') < 0 ){ alert('第'+(i+1)+'字段css选择器里没有图片image'); return }
             }
