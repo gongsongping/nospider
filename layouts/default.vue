@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div style='width:100vw;background-color:#54d0e4;'>
-      <nuxt-link  to="/" > 
-          <div style='padding:8px;'>首页</div>
+    <nav>
+      <nuxt-link to="/" class='head-btn'> 
+          首页
       </nuxt-link>
-    </div>
+    </nav>
     <div>
       <nuxt />
     </div>
@@ -27,6 +27,21 @@ html {
 * {
   margin: 0;
   padding: 0;
+}
+nav {
+  width:100vw;
+  background-color:#54d0e4;
+  height:32px;
+}
+.head-btn {
+  box-sizing: border-box;
+  padding-top:8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  display:inline-block;
+  height:100%;
+  text-align: center;
+
 }
 
 a {
