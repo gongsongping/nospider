@@ -226,7 +226,7 @@ export default {
        this.rule.generatefi = true
     },
     checkCss (f){
-        $(f.path).css('background-color','initial')
+        // $(f.path).css('background-color','initial')
         if ($(f.path).get(0)===undefined) {alert(f.name+'字段css选择器无效'); f.path=''; return}
         if (f.type==='image'){
             // if (f.path.indexOf('> img') < 0 ){ alert(f.name+'字段css选择器里没有图片image'); return }
@@ -238,7 +238,27 @@ export default {
             let last = f.path.split('>').reverse()[0].trim()[0]
             if (last!=='a') { alert(f.name+'链接选择器最后一个元素应该为a' ); f.path=''; return }
         }
-        $(f.path).css('background-color','tomato')
+
+        // $(f.path)[0].scrollIntoView(false)
+
+        let count=0
+        let intl = setInterval(()=>{
+            count+=1
+            $(f.path).css('border','2px solid tomato')
+            if (count > 20){
+                clearInterval(intl)
+                $(f.path).css('border','initial')
+            }
+        },400)
+        let count1=0
+        let intl1 = setInterval(()=>{
+            count1+=1
+            $(f.path).css('border','initial')
+            if (count1 > 21){
+                $(f.path).css('border','initial')
+                clearInterval(intl1)
+            }
+        },800)
     },
     async beginScrawl(){
         if (!this.rule.first){alert('url前段不能为空'); return}
@@ -321,8 +341,9 @@ export default {
 
 #selected {
      margin:3px;
-     padding:2px;
+     padding:2px 10px;
      background-color:#b0e9f3;
+     text-align: right;
 }
 
 #list-p {
