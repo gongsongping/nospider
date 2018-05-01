@@ -69,7 +69,7 @@
         <div  class='column-3'>
             <div style="display:flex;align-items;center;margin-top:5px;">
                 <h5 style='text-align:center;'>列表页&nbsp;&nbsp;</h5>
-                <input  @change='getListDomString()' type='text' v-model.lazy="rule.listurl" class="list-detail-input">
+                <input  @input='getListDomString()' type='text' v-model.lazy="rule.listurl" class="list-detail-input">
                 <center>  <button @click='getListDomString()'> 显示&nbsp;v </button> </center>   
             </div>
           <div id='list-p' >
@@ -79,10 +79,10 @@
           <center>
             <progress v-if="progress < 100" :value="progress" max="100" style="width:60%;"></progress>
           </center>
-          <div id='selected' style='margin:5px;background-color:#b0e9f3;'></div>
+          <div id='selected' style='margin:3px;padding:2px;background-color:#b0e9f3;'></div>
           <div style="display:flex;align-items;center;">
                 <h5 style='text-align:center;'>详情页&nbsp;&nbsp;</h5>
-                <input @change='getDetailDomString()' type='text' v-model="rule.detailurl" class="list-detail-input">
+                <input @input='getDetailDomString()' type='text' v-model="rule.detailurl" class="list-detail-input">
                 <center>  <button @click='getDetailDomString()'> 显示&nbsp;v </button> </center>   
           </div>
           <div id='detail-p'>
@@ -111,9 +111,11 @@
                     }
                     return name + index + id + clss;
 
-                }).slice(10).join(' > ');
+                })
+                var lth=quickCss.length
+                var sliced = [quickCss[lth-4],quickCss[lth-3],quickCss[lth-2],quickCss[lth-1]].join(' > ');
 
-                return quickCss;
+                return sliced;
             };
 
             // click on part of the page to see the CSS selector
