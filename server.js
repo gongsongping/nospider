@@ -73,17 +73,15 @@ app.post('/napi/url', async function  (req, res, next) {
 })
 
 
-app.post('/napi/scrawl', function  (req, res, next) {
+app.post('/napi/scrawl', async function  (req, res, next) {
     console.log('----------body-parser-body',req.body);
     const rule = req.body.rule
 
-    let url = new URL(rule.detailurl);
-    let detailword = url.pathname.split('/')[1]
-    let urlps = rule.urlps
+    const url = new URL(rule.detailurl);
+    const detailword = url.pathname.split('/')[1]
+    const urlps = rule.urlps
     console.log('-----detailword---',detailword,'---urlps---',urlps,'---fields--',rule.fields);
 
-    let objalls = []
-    
     
     (async function() {
         const instance = await phantom.create();
@@ -92,18 +90,18 @@ app.post('/napi/scrawl', function  (req, res, next) {
             console.info('Requesting', requestData.url);
         });
 
-        urlps.forEach( async function(p, idx) {
+        await urlps.forEach( async function(p, idx) {
             console.log('-----scrawling-fullurl--',rule.first+p+rule.third);
 
             const status = await page.open(rule.first+p+rule.third);//https://stackoverflow.com/ ;//https://www.google.com
             await page.includeJs("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
     
-            const alinks = await page.evaluate(function  () {
+            const alinks = await page.evaluate(function  (detailword) {
                 //   console.log('----------title-inside', document.title);
                 //   return document.title
-                return $('a').filter(`[href*=${detailword}]`)
+                return $('a').filter('[href*='+detailword+']')
             })
-            alinks.each( async function(i,a){
+            await alinks.each( async function(i,a){
                 console.log('----------scrawling-page--', a.href);
                 const status = await page.open(a.href);
                 await page.includeJs("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
@@ -114,13 +112,15 @@ app.post('/napi/scrawl', function  (req, res, next) {
                     console.log('----obj----', obj);
                     return obj
                 })
-                jsonfile.writeFile('./tmp/test.json', ob, {flag: 'a'}, function (err) {
+                await jsonfile.writeFile('./tmp/test.json', ob, {flag: 'a'}, function (err) {
                     console.error(err)
                 })
             })
         })
+       setTimeout(async ()=>{
+           await instance.exit();
 
-        await instance.exit();
+       },120000)
         
     })();
 
@@ -175,8 +175,8 @@ app.use(nuxt.render)
 new Builder(nuxt).build()
 .then(function () {
     console.log('-----build over------');
-    app.listen(3000,'0.0.0.0',function () {
-        console.log('--nuxt------listen',3000,'------',config.dev);
+    app.listen(3005,'0.0.0.0',function () {
+        console.log('--nuxt------listen',3005,'------',config.dev);
     });
 })
 .catch((error) => {
