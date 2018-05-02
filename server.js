@@ -21,6 +21,7 @@ app.use(cors());
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const jsonfile = require('jsonfile')
+const phantom = require('phantom');
 
 
 const getjq = (JSDOM,url,html)=>{
@@ -83,41 +84,82 @@ app.post('/napi/scrawl', function  (req, res, next) {
 
     let objalls = []
     
-    urlps.forEach((p, idx) => {
-        console.log('-----fullurl--',rule.first+p+rule.third);
-        axios.get(rule.first+p+rule.third)
-        .then(function (resp) {
-            console.log('-----scrawling-page--',p,'---');
-            // let $ = cheerio.load(resp.data);
-            // fs.appendFileSync('hackernews.txt', title + '\n' + link + '\n');
+    
+    (async function() {
+        const instance = await phantom.create();
+        const page = await instance.createPage();
+        await page.on('onResourceRequested', function(requestData) {
+            console.info('Requesting', requestData.url);
+        });
 
-            let $ = getjq(JSDOM,url,resp.data)
-            // let $ = cheerio.load(resp.data)             
+        urlps.forEach( async function(p, idx) {
+            console.log('-----scrawling-fullurl--',rule.first+p+rule.third);
 
-            $('a').filter(`[href*=${detailword}]`).each(function(i,a){
-                console.log('------',a.href)
-                axios.get(a.href)
-                .then(function (respo) {
-                    // console.log('-----detaildom',respo.data);
-                    // let $ = getjq(JSDOM,url,respo.data)
-                    // let obj = getobj(rule.fields,$)
-                    // obj['url'] = a.href
-                   
-                    const $ = cheerio.load(respo.data) 
+            const status = await page.open(rule.first+p+rule.third);//https://stackoverflow.com/ ;//https://www.google.com
+            await page.includeJs("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+    
+            const alinks = await page.evaluate(function  () {
+                //   console.log('----------title-inside', document.title);
+                //   return document.title
+                return $('a').filter(`[href*=${detailword}]`)
+            })
+            alinks.each( async function(i,a){
+                console.log('----------scrawling-page--', a.href);
+                const status = await page.open(a.href);
+                await page.includeJs("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+                const ob = await page.evaluate(function  () {
                     let obj = getobj(rule.fields,$)
                     obj['url'] = a.href
-                    
-                    // let obj = { url: a.href, html: respo.data}
-                    // let obj = { url: a.href, comment: $('.comment').text()}
+                   
                     console.log('----obj----', obj);
-                    jsonfile.writeFile('./tmp/test.json', obj, {flag: 'a'}, function (err) {
-                        console.error(err)
-                    })
+                    return obj
+                })
+                jsonfile.writeFile('./tmp/test.json', ob, {flag: 'a'}, function (err) {
+                    console.error(err)
                 })
             })
-            
         })
-    });
+
+        await instance.exit();
+        
+    })();
+
+    
+    // urlps.forEach((p, idx) => {
+    //     console.log('-----fullurl--',rule.first+p+rule.third);
+    //     axios.get(rule.first+p+rule.third)
+    //     .then(function (resp) {
+    //         console.log('-----scrawling-page--',p,'---');
+    //         // let $ = cheerio.load(resp.data);
+    //         // fs.appendFileSync('hackernews.txt', title + '\n' + link + '\n');
+
+    //         let $ = getjq(JSDOM,url,resp.data)
+    //         // let $ = cheerio.load(resp.data)             
+
+    //         $('a').filter(`[href*=${detailword}]`).each(function(i,a){
+    //             console.log('------',a.href)
+    //             axios.get(a.href)
+    //             .then(function (respo) {
+    //                 // console.log('-----detaildom',respo.data);
+    //                 // let $ = getjq(JSDOM,url,respo.data)
+    //                 // let obj = getobj(rule.fields,$)
+    //                 // obj['url'] = a.href
+                   
+    //                 const $ = cheerio.load(respo.data) 
+    //                 let obj = getobj(rule.fields,$)
+    //                 obj['url'] = a.href
+                    
+    //                 // let obj = { url: a.href, html: respo.data}
+    //                 // let obj = { url: a.href, comment: $('.comment').text()}
+    //                 console.log('----obj----', obj);
+    //                 jsonfile.writeFile('./tmp/test.json', obj, {flag: 'a'}, function (err) {
+    //                     console.error(err)
+    //                 })
+    //             })
+    //         })
+            
+    //     })
+    // });
 
     
     res.json({ok:'ok'})
