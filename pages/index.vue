@@ -1,9 +1,12 @@
 <template>
     
     <div class='box'>
-        <pre v-show="log" id="log" >{{log}}</pre>
-
-
+        <!-- <pre v-show="log" id="log" >{{log}}</pre> -->
+        <div v-show="logarr.length" id="log" >
+            <div v-for="(l,index) in logarr.slice(logarr.length-3)" :key="index" style="padding:2px;">{{l}}</div>
+        </div>
+        
+        
         <div  class='column-1'>
             <div class="url-input">
                 <h5 style='text-align:center;'>列表页&nbsp;&nbsp;</h5>
@@ -177,6 +180,7 @@ export default {
             guideHome: false, 
             ws: null,
             log: '',
+            logarr:[],
         }
     },
     components: {
@@ -301,9 +305,12 @@ export default {
             this.ws = new WebSocket('ws://localhost:8000/');
             let vm=this
             vm.log=''
+            vm.logarr=[]
             this.ws.onopen = function () {
                 // log('CONNECT');
-                vm.log="CONNECT" + '\n' +  vm.log
+                // vm.log="CONNECT" + '\n' +  vm.log
+                // vm.log="CONNECT"
+                vm.logarr.push('CONNECT')
                 vm.ws.send(JSON.stringify(vm.rule))
                 vm.ws.send(JSON.stringify(vm.rule))
                 // setTimeout(()=>{
@@ -311,11 +318,15 @@ export default {
             };
             this.ws.onclose = function () {
                 // log('DISCONNECT');
-                vm.log="DISCONNECT" + '\n' + vm.log
+                // vm.log="DISCONNECT"
+                // vm.log="DISCONNECT" + '\n' + vm.log
+                vm.logarr.push('DISCONNECT')
             };
             this.ws.onmessage = function (event) {
                 // log('MESSAGE: ' + event.data);
-                vm.log=event.data + '\n' + vm.log 
+                // vm.log=event.data
+                // vm.log=event.data + '\n' + vm.log 
+                vm.logarr.push(event.data)
             };
             
             // let res = await axios({
@@ -360,9 +371,7 @@ export default {
     background-color:black;
     color:white;
     text-align:center;
-    max-height:100px;
     font-size:0.7em;
-    overflow:scroll;
 }
 
 .url-input {
