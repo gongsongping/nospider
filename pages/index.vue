@@ -1,6 +1,9 @@
 <template>
     
     <div class='box'>
+        <pre v-show="log" id="log" >{{log}}</pre>
+
+
         <div  class='column-1'>
             <div class="url-input">
                 <h5 style='text-align:center;'>列表页&nbsp;&nbsp;</h5>
@@ -71,21 +74,26 @@
                 <h4 style='text-align:center;'>抓取字段</h4>
                 <button @click="rule.fields.push({name:'',path:'',type:'text'})"> 添加字段 </button>                
                 <table>
-                <tr> <th>字段名</th> <th>css选择器</th> <th>类型</th> <th>删除</th> </tr>
-                <tr  v-for="(f,index) in rule.fields" :key="index">
-                    <td> <input type='text' v-model="f.name" style="max-width: 70px; margin: 0; border:0.5px solid lightgrey;"></td>
-                    <td> <input type='text' @input="checkCss(f)" v-model="f.path" style="max-width: 140px; margin: 0; border:0.5px solid lightgrey;">  </td>
-                    <td> 
-                        <select @change="checkCss(f)" v-model="f.type">
-                            <option value="text"> 文本 </option>
-                            <option value="image"> 图片链接 </option>
-                            <option value="link"> 链接 </option>
-                        </select> 
-                    </td>
-                    <td @click="rule.fields.splice(index,1)">
-                    <span style="margin-left:5px;color:tomato;">x</span>
-                    </td>
-                </tr>
+                    <thead>
+                        <tr> <th>字段名</th> <th>css选择器</th> <th>类型</th> <th>删除</th> </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr  v-for="(f,index) in rule.fields" :key="index">
+                            <td> <input type='text' v-model="f.name" style="max-width: 70px; margin: 0; border:0.5px solid lightgrey;"></td>
+                            <td> <input type='text' @input="checkCss(f)" v-model="f.path" style="max-width: 140px; margin: 0; border:0.5px solid lightgrey;">  </td>
+                            <td> 
+                                <select @change="checkCss(f)" v-model="f.type">
+                                    <option value="text"> 文本 </option>
+                                    <option value="image"> 图片链接 </option>
+                                    <option value="link"> 链接 </option>
+                                </select> 
+                            </td>
+                            <td @click="rule.fields.splice(index,1)">
+                            <span style="margin-left:5px;color:tomato;">x</span>
+                            </td>
+                        </tr>
+                    </tbody>
                 
                 </table>
             </div>
@@ -166,6 +174,8 @@ export default {
             progress: 102,
             guidePagi: false,
             guideHome: false, 
+            ws: null,
+            log: '',
         }
     },
     components: {
@@ -282,14 +292,35 @@ export default {
                     if (f.path.indexOf('> a') < 0){ alert('第'+(i+1)+'字段css选择器里没有有效链接a'); return }
                 }
             })
+
+            function log(msg) {
+                document.getElementById('log').textContent = msg + '\n';
+            }
+            // setup websocket with callbacks
+            this.ws = new WebSocket('ws://localhost:8000/');
+            let vm=this
+            vm.log=''
+            this.ws.onopen = function () {
+                // log('CONNECT');
+                vm.log="CONNECT" + '\n' +  vm.log
+                vm.ws.send(JSON.stringify(vm.rule))
+            };
+            this.ws.onclose = function () {
+                // log('DISCONNECT');
+                vm.log="DISCONNECT" + '\n' + vm.log
+            };
+            this.ws.onmessage = function (event) {
+                // log('MESSAGE: ' + event.data);
+                vm.log=event.data + '\n' + vm.log 
+            };
             
-            let res = await axios({
-                url: '/napi/scrawl',
-                method:'POST',
-                data:{
-                    rule: this.rule
-                },
-            })
+            // let res = await axios({
+            //     url: '/napi/scrawl',
+            //     method:'POST',
+            //     data:{
+            //         rule: this.rule
+            //     },
+            // })
 
         }
     }
@@ -318,6 +349,16 @@ export default {
     height:130vh;    
     overflow-y:scroll;
     overflow-x:visible;
+}
+
+#log {
+    padding:2px;
+    background-color:black;
+    color:white;
+    text-align:center;
+    max-height:100px;
+    font-size:0.7em;
+    overflow:scroll;
 }
 
 .url-input {
