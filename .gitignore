@@ -14,3 +14,8 @@ __pycache__/
 fabfile.py
 /tmp
 .vscode/
+
+scrapy/*.json
+scrapy/*.jl
+scrapy/*.csv
+scrapy/*.log

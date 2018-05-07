@@ -145,6 +145,7 @@
 <script>
 // import axios from '~/plugins/axios';
 import axios from 'axios';
+import { setTimeout } from 'timers';
 
 export default {
     data () {
@@ -304,6 +305,9 @@ export default {
                 // log('CONNECT');
                 vm.log="CONNECT" + '\n' +  vm.log
                 vm.ws.send(JSON.stringify(vm.rule))
+                vm.ws.send(JSON.stringify(vm.rule))
+                // setTimeout(()=>{
+                // }, 2000)
             };
             this.ws.onclose = function () {
                 // log('DISCONNECT');
