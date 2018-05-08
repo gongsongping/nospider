@@ -10,7 +10,7 @@
         <div  class='column-1'>
             <div class="url-input">
                 <h5 style='text-align:center;'>列表页&nbsp;&nbsp;</h5>
-                <input  @input='getListDomString()' type='text' v-model.lazy="rule.listurl" placeholder="列表页链接url" >
+                <input  @input='getListDomString()' type='text' v-model="rule.listurl" placeholder="列表页链接url" >
                 <center>  <button @click='getListDomString()'> 显示&nbsp;v </button> </center>   
             </div>
             <div id='list-p' >
