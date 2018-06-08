@@ -29,7 +29,6 @@
     "jsdom": "^11.9.0",
     "jsonfile": "^4.0.0",
     "nuxt": "^1.0.0",
-    "phantom": "^4.0.12",
     "url-parse": "^1.4.0",
     "vue-infinite-loading": "^2.2.3"
   },
