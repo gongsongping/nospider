@@ -9,7 +9,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "build-check": "nuxt build --analyze",
-    "start": "nuxt build&&nuxt start",
+    "start": "node server.js",
     "prod": "pm2 stop nospider&&npm run build&&pm2 start npm  --max-memory-restart 100M --name nospider -- start",
     "generate": "nuxt generate",
     "server": "NODE_ENV=production&&node server.js",

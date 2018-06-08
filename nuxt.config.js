@@ -15,38 +15,57 @@ module.exports = {
   ],
   router: {
     // linkActiveClass: 'link-active',
-    linkExactActiveClass:'link-exact-active',
+    linkExactActiveClass: 'link-exact-active',
     base: '/nospider/',
   },
   // mode: 'spa',
   head: {
     title: 'nospider',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'nuxttest' }
+    meta: [{
+        charset: 'utf-8'
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'nuxttest'
+      }
     ],
     // script: [
     //   { src: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js' }
     // ], //不如直接在.vue页面用script引用
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' }
+    link: [{
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
+      }
     ],
   },
   /*
-  ** Customize the progress bar color
-  */
-  loading: { color: 'tomato' },
+   ** Customize the progress bar color
+   */
+  loading: {
+    color: 'tomato'
+  },
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
     /*
-    ** Run ESLint on save
-    */
-  //  vendor: ['axios','vue-infinite-loading'],
-    extend (config, { isDev, isClient }) {
+     ** Run ESLint on save
+     */
+    //  vendor: ['axios','vue-infinite-loading'],
+    extend(config, {
+      isDev,
+      isClient
+    }) {
       if (isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',
@@ -59,7 +78,7 @@ module.exports = {
   },
   plugins: [
     // { src: '~/node_modules/jquery/dist/jquery.min.js', ssr: false }, //不如直接在.vue页面用script引用//当在服务端渲染时会Error: jQuery requires a window with a document, 所以ssr false
-    { src: '~/plugins/bootstrap.js', ssr: true },
+    // { src: '~/plugins/bootstrap.js', ssr: true },
     // { src: '~/plugins/axios.js', ssr: true }, //当没有用到Vue.use(..)的时候,不用在这里引入
   ],
   // modules: [

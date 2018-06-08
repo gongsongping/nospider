@@ -15,7 +15,7 @@ fabfile.py
 /tmp
 .vscode/
 
-scrapy/*.json
-scrapy/*.jl
-scrapy/*.csv
-scrapy/*.log
+scrapy1/*.json
+scrapy1/*.jl
+scrapy1/*.csv
+scrapy1/*.log

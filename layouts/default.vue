@@ -1,9 +1,9 @@
 <template>
   <div>
     <nav>
-      <nuxt-link to="/" class='head-btn'> 
+      <a href="/nuxta" class='head-btn'> 
           首页
-      </nuxt-link>
+      </a>
     </nav>
     <div>
       <nuxt />
@@ -14,7 +14,8 @@
 
 <style>
 html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -29,19 +30,18 @@ html {
   padding: 0;
 }
 nav {
-  width:100vw;
-  background-color:#54d0e4;
-  height:32px;
+  width: 100vw;
+  background-color: #54d0e4;
+  height: 32px;
 }
 .head-btn {
   box-sizing: border-box;
-  padding-top:8px;
+  padding-top: 8px;
   padding-left: 8px;
   padding-right: 8px;
-  display:inline-block;
-  height:100%;
+  display: inline-block;
+  height: 100%;
   text-align: center;
-
 }
 
 a {
@@ -50,11 +50,10 @@ a {
 }
 
 a:hover {
-    color: #b1cace;  
-    background-color: tomato;
-    text-decoration: underline;
+  color: #b1cace;
+  background-color: tomato;
+  text-decoration: underline;
 }
-
 
 .link-active {
   background-color: grey;
